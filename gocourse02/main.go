@@ -18,10 +18,17 @@ func main() {
 	var sirko = Animal{}.New("Sirko", 1)
 	fmt.Printf("Animal with name %s is istting in cage number %d\n", sirko.Name, sirko.Number)
 
-	var sirko_son = Animal{}.New("Sirko junior", 1)
-	fmt.Printf("Animal with name %s is istting in cage number %d\n", sirko_son.Name, sirko_son.Number)
+	var sirkoSon = Animal{}.New("Sirko junior", 1)
+	fmt.Printf("Animal with name %s is istting in cage number %d\n", sirkoSon.Name, sirkoSon.Number)
+
+	var sirkoDaughter = Animal{}.New("", 2)
+	if sirkoDaughter == nil {
+		fmt.Println("Everything work as expected")
+	}
+
 }
 
+// example with struct
 type Zookeeper struct {
 	IsBusy bool
 	Name   string
@@ -43,6 +50,7 @@ type Cage struct {
 	Number   int
 }
 
+// example with constructor
 func (c Cage) New(isBroken bool, number int) *Cage {
 	return &Cage{
 		IsBroken: isBroken,
@@ -50,6 +58,7 @@ func (c Cage) New(isBroken bool, number int) *Cage {
 	}
 }
 
+// example with pointer
 func (c *Cage) FixCage() {
 	if c.IsBroken {
 		c.IsBroken = false
@@ -61,7 +70,12 @@ type Animal struct {
 	Number int
 }
 
+// example nil using
 func (a Animal) New(name string, number int) *Animal {
+	if name == "" {
+		return nil
+	}
+
 	return &Animal{
 		Name:   name,
 		Number: number,
