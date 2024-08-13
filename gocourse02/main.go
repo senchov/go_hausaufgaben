@@ -15,13 +15,13 @@ func main() {
 	}
 	fmt.Printf("Cage number %d state =>%t\n", cage.Number, cage.IsBroken)
 
-	var sirko = Animal{}.New("Sirko", 1)
-	fmt.Printf("Animal with name %s is istting in cage number %d\n", sirko.Name, sirko.Number)
+	var sirko = Animal{}.New("Sirko", cage)
+	fmt.Printf("Animal with name %s is istting in cage number %d\n", sirko.Name, sirko.Cage.Number)
 
-	var sirkoSon = Animal{}.New("Sirko junior", 1)
-	fmt.Printf("Animal with name %s is istting in cage number %d\n", sirkoSon.Name, sirkoSon.Number)
+	var sirkoSon = Animal{}.New("Sirko junior", cage)
+	fmt.Printf("Animal with name %s is istting in cage number %d\n", sirkoSon.Name, sirkoSon.Cage.Number)
 
-	var sirkoDaughter = Animal{}.New("", 2)
+	var sirkoDaughter = Animal{}.New("", nil)
 	if sirkoDaughter == nil {
 		fmt.Println("Everything work as expected")
 	}
@@ -66,18 +66,18 @@ func (c *Cage) FixCage() {
 }
 
 type Animal struct {
-	Name   string
-	Number int
+	Name string
+	Cage *Cage
 }
 
 // example nil using
-func (a Animal) New(name string, number int) *Animal {
+func (a Animal) New(name string, cage *Cage) *Animal {
 	if name == "" {
 		return nil
 	}
 
 	return &Animal{
-		Name:   name,
-		Number: number,
+		Name: name,
+		Cage: cage,
 	}
 }
