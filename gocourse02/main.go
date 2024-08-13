@@ -11,7 +11,7 @@ func main() {
 	cage := Cage{}.New(true, 1)
 	fmt.Printf("Cage number %d state =>%t\n", cage.Number, cage.IsBroken)
 	if !zookyper.IsBusy && cage.IsBroken {
-		cage.FixCage()
+		zookyper.FixCage(cage)
 	}
 	fmt.Printf("Cage number %d state =>%t\n", cage.Number, cage.IsBroken)
 
@@ -59,7 +59,7 @@ func (c Cage) New(isBroken bool, number int) *Cage {
 }
 
 // example with pointer
-func (c *Cage) FixCage() {
+func (z Zookeeper) FixCage(c *Cage) {
 	if c.IsBroken {
 		c.IsBroken = false
 	}
