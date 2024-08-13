@@ -15,18 +15,20 @@ func main() {
 	}
 	fmt.Printf("Cage number %d state =>%t\n", cage.Number, cage.IsBroken)
 
-	var sirko = Animal{}.New("Sirko", cage)
-	fmt.Printf("Animal with name %s is sitting in cage number %d\n", sirko.Name, sirko.Cage.Number)
+	var sirko = Animal{}.New("Sirko", cage, Cat)
+	fmt.Printf("Animal with name %s is sitting in cage number %d type of %s\n", sirko.Name, sirko.Cage.Number, sirko.AnimalType)
 
-	var sirkoSon = Animal{}.New("Sirko junior", cage)
-	fmt.Printf("Animal with name %s is sitting in cage number %d\n", sirkoSon.Name, sirkoSon.Cage.Number)
+	var sirkoSon = Animal{}.New("Sirko junior", cage, Cat)
+	fmt.Printf("Animal with name %s is sitting in cage number %d type of %s\n", sirkoSon.Name, sirkoSon.Cage.Number, sirkoSon.AnimalType)
 
-	var sirkoDaughter = Animal{}.New("", nil)
+	var sirkoDaughter = Animal{}.New("", nil, Cat)
 	if sirkoDaughter == nil {
 		fmt.Println("Everything work as expected")
 	}
 
 }
+
+const Cat = "Cat"
 
 // example with struct
 type Zookeeper struct {
@@ -66,18 +68,20 @@ func (z Zookeeper) FixCage(c *Cage) {
 }
 
 type Animal struct {
-	Name string
-	Cage *Cage
+	Name       string
+	Cage       *Cage
+	AnimalType string
 }
 
 // example nil using
-func (a Animal) New(name string, cage *Cage) *Animal {
+func (a Animal) New(name string, cage *Cage, animalType string) *Animal {
 	if name == "" {
 		return nil
 	}
 
 	return &Animal{
-		Name: name,
-		Cage: cage,
+		Name:       name,
+		Cage:       cage,
+		AnimalType: animalType,
 	}
 }
