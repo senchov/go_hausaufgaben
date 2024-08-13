@@ -19,7 +19,7 @@ func main() {
 	fmt.Printf("Animal with name %s is istting in cage number %d\n", sirko.Name, sirko.Cage.Number)
 
 	var sirkoSon = Animal{}.New("Sirko junior", cage)
-	fmt.Printf("Animal with name %s is istting in cage number %d\n", sirkoSon.Name, sirkoSon.Cage.Number)
+	fmt.Printf("Animal with name %s is sitting in cage number %d\n", sirkoSon.Name, sirkoSon.Cage.Number)
 
 	var sirkoDaughter = Animal{}.New("", nil)
 	if sirkoDaughter == nil {
