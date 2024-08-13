@@ -16,7 +16,7 @@ func main() {
 	fmt.Printf("Cage number %d state =>%t\n", cage.Number, cage.IsBroken)
 
 	var sirko = Animal{}.New("Sirko", cage)
-	fmt.Printf("Animal with name %s is istting in cage number %d\n", sirko.Name, sirko.Cage.Number)
+	fmt.Printf("Animal with name %s is sitting in cage number %d\n", sirko.Name, sirko.Cage.Number)
 
 	var sirkoSon = Animal{}.New("Sirko junior", cage)
 	fmt.Printf("Animal with name %s is sitting in cage number %d\n", sirkoSon.Name, sirkoSon.Cage.Number)
