@@ -5,23 +5,23 @@ import (
 )
 
 func main() {
-	zookyper := Zookeeper{}.New(false, "Mukola")
-	zookyper.PrintName()
+	zookeeper := NewZookeeper(false, "Mukola")
+	zookeeper.PrintName()
 
-	cage := Cage{}.New(true, 1)
+	cage := NewCage(true, 1)
 	fmt.Printf("Cage number %d state =>%t\n", cage.Number, cage.IsBroken)
-	if !zookyper.IsBusy && cage.IsBroken {
-		zookyper.FixCage(cage)
+	if !zookeeper.IsBusy && cage.IsBroken {
+		zookeeper.FixCage(cage)
 	}
 	fmt.Printf("Cage number %d state =>%t\n", cage.Number, cage.IsBroken)
 
-	var sirko = Animal{}.New("Sirko", cage, Cat)
+	var sirko = NewAnimal("Sirko", cage, Cat)
 	fmt.Printf("Animal with name %s is sitting in cage number %d type of %s\n", sirko.Name, sirko.Cage.Number, sirko.AnimalType)
 
-	var sirkoSon = Animal{}.New("Sirko junior", cage, Cat)
+	var sirkoSon = NewAnimal("Sirko junior", cage, Tiger)
 	fmt.Printf("Animal with name %s is sitting in cage number %d type of %s\n", sirkoSon.Name, sirkoSon.Cage.Number, sirkoSon.AnimalType)
 
-	var sirkoDaughter = Animal{}.New("", nil, Cat)
+	var sirkoDaughter = NewAnimal("", nil, Manul)
 	if sirkoDaughter == nil {
 		fmt.Println("Everything work as expected")
 	}
@@ -29,6 +29,8 @@ func main() {
 }
 
 const Cat = "Cat"
+const Manul = "Manul"
+const Tiger = "Tiger"
 
 // example with struct
 type Zookeeper struct {
@@ -36,7 +38,7 @@ type Zookeeper struct {
 	Name   string
 }
 
-func (z Zookeeper) New(isBusy bool, name string) *Zookeeper {
+func NewZookeeper(isBusy bool, name string) *Zookeeper {
 	return &Zookeeper{
 		IsBusy: isBusy,
 		Name:   name,
@@ -53,7 +55,7 @@ type Cage struct {
 }
 
 // example with constructor
-func (c Cage) New(isBroken bool, number int) *Cage {
+func NewCage(isBroken bool, number int) *Cage {
 	return &Cage{
 		IsBroken: isBroken,
 		Number:   number,
@@ -74,7 +76,7 @@ type Animal struct {
 }
 
 // example nil using
-func (a Animal) New(name string, cage *Cage, animalType string) *Animal {
+func NewAnimal(name string, cage *Cage, animalType string) *Animal {
 	if name == "" {
 		return nil
 	}
