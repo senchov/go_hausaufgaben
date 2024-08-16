@@ -17,18 +17,18 @@ const (
 	Center      Sector     = "Center"
 )
 
-var rodents [4]Rodent
-var westRodents []Rodent
-var eastRodents []Rodent
-var northRodents []Rodent
-var southRodents []Rodent
-var movements []Movement
-
 type RodentType string
 
 type Sector string
 
 func main() {
+	var rodents [4]Rodent
+	var westRodents []Rodent
+	var eastRodents []Rodent
+	var northRodents []Rodent
+	var southRodents []Rodent
+	var movements []Movement
+
 	rodents = [4]Rodent{
 		{ID: 1, Sector: &westRodents, RodentType: Chip, FromTo: [2]Sector{WestSector, WestSector}},
 		{ID: 2, Sector: &eastRodents, RodentType: Dale, FromTo: [2]Sector{EastSector, EastSector}},
@@ -41,14 +41,14 @@ func main() {
 	southRodents = append(southRodents, rodents[2])
 	northRodents = append(northRodents, rodents[3])
 
-	PrintLocations()
+	PrintLocations(rodents, movements)
 
-	moveThroughtCenter(1, time.Now().Add(10), WestSector, EastSector)
-	moveThroughtCenter(2, time.Now().Add(11), EastSector, NorthSector)
-	moveThroughtCenter(2, time.Now().Add(12), NorthSector, SouthSector)
-	moveThroughtCenter(3, time.Now().Add(13), SouthSector, WestSector)
+	moveThroughtCenter(1, time.Now().Add(10), WestSector, EastSector, movements, rodents, westRodents, eastRodents, northRodents, southRodents)
+	moveThroughtCenter(2, time.Now().Add(11), EastSector, NorthSector, movements, rodents, westRodents, eastRodents, northRodents, southRodents)
+	moveThroughtCenter(2, time.Now().Add(12), NorthSector, SouthSector, movements, rodents, westRodents, eastRodents, northRodents, southRodents)
+	moveThroughtCenter(3, time.Now().Add(13), SouthSector, WestSector, movements, rodents, westRodents, eastRodents, northRodents, southRodents)
 
-	PrintLocations()
+	PrintLocations(rodents, movements)
 }
 
 type Rodent struct {
@@ -63,12 +63,23 @@ type Movement struct {
 	FromTo   [2]Sector
 }
 
-func moveThroughtCenter(id int, moveTime time.Time, from Sector, to Sector) {
-	rodent := FindRodent(id)
+func moveThroughtCenter(
+	id int,
+	moveTime time.Time,
+	from Sector,
+	to Sector,
+	movements []Movement,
+	rodents [4]Rodent,
+	westRodents []Rodent,
+	eastRodents []Rodent,
+	northRodents []Rodent,
+	southRodents []Rodent,
+) {
+	rodent := FindRodent(id, rodents)
 	rodent.FromTo = [2]Sector{from, to}
 
 	rodent.Sector = RemoveFromSectorArr(id, *rodent.Sector)
-	rodent.Sector = GetSectorArr(to)
+	rodent.Sector = GetSectorArr(to, &westRodents, &eastRodents, &northRodents, &southRodents)
 
 	var c []Rodent = *rodent.Sector
 	c = append(c, *rodent)
@@ -76,7 +87,7 @@ func moveThroughtCenter(id int, moveTime time.Time, from Sector, to Sector) {
 	movements = append(movements, Movement{MoveTime: moveTime, FromTo: [2]Sector{WestSector, EastSector}})
 }
 
-func FindRodent(id int) *Rodent {
+func FindRodent(id int, rodents [4]Rodent) *Rodent {
 	for i := 0; i < len(rodents); i++ {
 		if rodents[i].ID == id {
 			return &rodents[i]
@@ -85,16 +96,21 @@ func FindRodent(id int) *Rodent {
 	return nil
 }
 
-func GetSectorArr(name Sector) *[]Rodent {
+func GetSectorArr(
+	name Sector,
+	westRodents *[]Rodent,
+	eastRodents *[]Rodent,
+	northRodents *[]Rodent,
+	southRodents *[]Rodent) *[]Rodent {
 	switch name {
 	case WestSector:
-		return &westRodents
+		return westRodents
 	case EastSector:
-		return &eastRodents
+		return eastRodents
 	case NorthSector:
-		return &northRodents
+		return northRodents
 	case SouthSector:
-		return &southRodents
+		return southRodents
 	default:
 		return nil
 	}
@@ -115,7 +131,7 @@ func GetIndex(arr []Rodent, id int) int {
 	return -1
 }
 
-func PrintLocations() {
+func PrintLocations(rodents [4]Rodent, movements []Movement) {
 	for _, val := range rodents {
 		fmt.Printf("%s is located in %s sector \n", val.RodentType, val.FromTo[1])
 	}
