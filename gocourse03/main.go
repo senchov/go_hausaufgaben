@@ -6,15 +6,15 @@ import (
 )
 
 const (
-	Chip        = "Chip"
-	Dale        = "Dale"
-	Cheaser     = "Cheaser"
-	Hackwrench  = "Hackwrench"
-	NorthSector = "North"
-	SouthSector = "South"
-	WestSector  = "West"
-	EastSector  = "East"
-	Center      = "Center"
+	Chip        RodentType = "Chip"
+	Dale        RodentType = "Dale"
+	Cheaser     RodentType = "Cheaser"
+	Hackwrench  RodentType = "Hackwrench"
+	NorthSector Sector     = "North"
+	SouthSector Sector     = "South"
+	WestSector  Sector     = "West"
+	EastSector  Sector     = "East"
+	Center      Sector     = "Center"
 )
 
 var rodents [4]Rodent
@@ -24,12 +24,16 @@ var northRodents []Rodent
 var southRodents []Rodent
 var movements []Movement
 
+type RodentType string
+
+type Sector string
+
 func main() {
 	rodents = [4]Rodent{
-		{ID: 1, Sector: &westRodents, RodentType: Chip, FromTo: [2]string{WestSector, WestSector}},
-		{ID: 2, Sector: &eastRodents, RodentType: Dale, FromTo: [2]string{EastSector, EastSector}},
-		{ID: 3, Sector: &southRodents, RodentType: Cheaser, FromTo: [2]string{SouthSector, SouthSector}},
-		{ID: 4, Sector: &northRodents, RodentType: Hackwrench, FromTo: [2]string{NorthSector, NorthSector}},
+		{ID: 1, Sector: &westRodents, RodentType: Chip, FromTo: [2]Sector{WestSector, WestSector}},
+		{ID: 2, Sector: &eastRodents, RodentType: Dale, FromTo: [2]Sector{EastSector, EastSector}},
+		{ID: 3, Sector: &southRodents, RodentType: Cheaser, FromTo: [2]Sector{SouthSector, SouthSector}},
+		{ID: 4, Sector: &northRodents, RodentType: Hackwrench, FromTo: [2]Sector{NorthSector, NorthSector}},
 	}
 
 	westRodents = append(westRodents, rodents[0])
@@ -50,18 +54,18 @@ func main() {
 type Rodent struct {
 	ID         int
 	Sector     *[]Rodent
-	RodentType string
-	FromTo     [2]string
+	RodentType RodentType
+	FromTo     [2]Sector
 }
 
 type Movement struct {
 	MoveTime time.Time
-	FromTo   [2]string
+	FromTo   [2]Sector
 }
 
-func moveThroughtCenter(id int, moveTime time.Time, from string, to string) {
+func moveThroughtCenter(id int, moveTime time.Time, from Sector, to Sector) {
 	rodent := FindRodent(id)
-	rodent.FromTo = [2]string{from, to}
+	rodent.FromTo = [2]Sector{from, to}
 
 	rodent.Sector = RemoveFromSectorArr(id, *rodent.Sector)
 	rodent.Sector = GetSectorArr(to)
@@ -69,7 +73,7 @@ func moveThroughtCenter(id int, moveTime time.Time, from string, to string) {
 	var c []Rodent = *rodent.Sector
 	c = append(c, *rodent)
 	rodent.Sector = &c
-	movements = append(movements, Movement{MoveTime: moveTime, FromTo: [2]string{WestSector, EastSector}})
+	movements = append(movements, Movement{MoveTime: moveTime, FromTo: [2]Sector{WestSector, EastSector}})
 }
 
 func FindRodent(id int) *Rodent {
@@ -81,7 +85,7 @@ func FindRodent(id int) *Rodent {
 	return nil
 }
 
-func GetSectorArr(name string) *[]Rodent {
+func GetSectorArr(name Sector) *[]Rodent {
 	switch name {
 	case WestSector:
 		return &westRodents
