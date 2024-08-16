@@ -32,7 +32,6 @@ const Cat = "Cat"
 const Manul = "Manul"
 const Tiger = "Tiger"
 
-// example with struct
 type Zookeeper struct {
 	IsBusy bool
 	Name   string
@@ -54,7 +53,6 @@ type Cage struct {
 	Number   int
 }
 
-// example with constructor
 func NewCage(isBroken bool, number int) *Cage {
 	return &Cage{
 		IsBroken: isBroken,
@@ -62,7 +60,6 @@ func NewCage(isBroken bool, number int) *Cage {
 	}
 }
 
-// example with pointer
 func (z Zookeeper) FixCage(c *Cage) {
 	if c.IsBroken {
 		c.IsBroken = false
@@ -75,7 +72,6 @@ type Animal struct {
 	AnimalType string
 }
 
-// example nil using
 func NewAnimal(name string, cage *Cage, animalType string) *Animal {
 	if name == "" {
 		return nil
