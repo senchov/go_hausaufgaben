@@ -28,9 +28,11 @@ func main() {
 
 }
 
-const Cat = "Cat"
-const Manul = "Manul"
-const Tiger = "Tiger"
+type AnimalType string
+
+const Cat AnimalType = "Cat"
+const Manul AnimalType = "Manul"
+const Tiger AnimalType = "Tiger"
 
 type Zookeeper struct {
 	IsBusy bool
@@ -69,10 +71,10 @@ func (z Zookeeper) FixCage(c *Cage) {
 type Animal struct {
 	Name       string
 	Cage       *Cage
-	AnimalType string
+	AnimalType AnimalType
 }
 
-func NewAnimal(name string, cage *Cage, animalType string) *Animal {
+func NewAnimal(name string, cage *Cage, animalType AnimalType) *Animal {
 	if name == "" {
 		return nil
 	}
