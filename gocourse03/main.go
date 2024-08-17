@@ -23,14 +23,13 @@ type RodentType string
 type Sector string
 
 func main() {
-	var rodents [4]Rodent
 	var westRodents []Rodent
 	var eastRodents []Rodent
 	var northRodents []Rodent
 	var southRodents []Rodent
 	var movements []Movement
 
-	rodents = [4]Rodent{
+	rodents := [4]Rodent{
 		{ID: 1, Sector: &westRodents, RodentType: Chip, FromTo: [2]Sector{WestSector, WestSector}},
 		{ID: 2, Sector: &eastRodents, RodentType: Dale, FromTo: [2]Sector{EastSector, EastSector}},
 		{ID: 3, Sector: &southRodents, RodentType: Cheaser, FromTo: [2]Sector{SouthSector, SouthSector}},
