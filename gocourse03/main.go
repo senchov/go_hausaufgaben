@@ -6,15 +6,16 @@ import (
 )
 
 const (
-	Chip        RodentType = "Chip"
-	Dale        RodentType = "Dale"
-	Cheaser     RodentType = "Cheaser"
-	Hackwrench  RodentType = "Hackwrench"
-	NorthSector Sector     = "North"
-	SouthSector Sector     = "South"
-	WestSector  Sector     = "West"
-	EastSector  Sector     = "East"
-	Center      Sector     = "Center"
+	Chip       RodentType = "Chip"
+	Dale       RodentType = "Dale"
+	Cheaser    RodentType = "Cheaser"
+	Hackwrench RodentType = "Hackwrench"
+
+	NorthSector Sector = "North"
+	SouthSector Sector = "South"
+	WestSector  Sector = "West"
+	EastSector  Sector = "East"
+	Center      Sector = "Center"
 )
 
 type RodentType string
