@@ -31,9 +31,11 @@ func main() {
 type AnimalType string
 type Name string
 
-const Cat AnimalType = "Cat"
-const Manul AnimalType = "Manul"
-const Tiger AnimalType = "Tiger"
+const (
+	Cat   AnimalType = "Cat"
+	Manul AnimalType = "Manul"
+	Tiger AnimalType = "Tiger"
+)
 
 type Zookeeper struct {
 	IsBusy bool
