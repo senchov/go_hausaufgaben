@@ -36,10 +36,10 @@ func main() {
 		{ID: 4, Sector: &northRodents, RodentType: Hackwrench, FromTo: [2]Sector{NorthSector, NorthSector}},
 	}
 
-	westRodents = append(westRodents, rodents[0])
-	eastRodents = append(eastRodents, rodents[1])
-	southRodents = append(southRodents, rodents[2])
-	northRodents = append(northRodents, rodents[3])
+	westRodents = []Rodent{rodents[0]}
+	eastRodents = []Rodent{rodents[1]}
+	southRodents = []Rodent{rodents[2]}
+	northRodents = []Rodent{rodents[3]}
 
 	PrintLocations(rodents, movements)
 
