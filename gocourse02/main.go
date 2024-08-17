@@ -15,13 +15,13 @@ func main() {
 	}
 	fmt.Printf("Cage number %d state =>%t\n", cage.Number, cage.IsBroken)
 
-	var sirko = NewAnimal("Sirko", cage, Cat)
+	sirko := NewAnimal("Sirko", cage, Cat)
 	fmt.Printf("Animal with name %s is sitting in cage number %d type of %s\n", sirko.Name, sirko.Cage.Number, sirko.AnimalType)
 
-	var sirkoSon = NewAnimal("Sirko junior", cage, Tiger)
+	sirkoSon := NewAnimal("Sirko junior", cage, Tiger)
 	fmt.Printf("Animal with name %s is sitting in cage number %d type of %s\n", sirkoSon.Name, sirkoSon.Cage.Number, sirkoSon.AnimalType)
 
-	var sirkoDaughter = NewAnimal("", nil, Manul)
+	sirkoDaughter := NewAnimal("", nil, Manul)
 	if sirkoDaughter == nil {
 		fmt.Println("Everything work as expected")
 	}
