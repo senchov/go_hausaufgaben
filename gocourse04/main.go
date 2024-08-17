@@ -34,8 +34,9 @@ type Sector struct {
 }
 
 type Animal struct {
-	ID   int
-	Name string
+	ID    int
+	Name  string
+	IsAte bool
 }
 
 type Zoo struct {
@@ -160,4 +161,8 @@ func MoveAnimal(zoo *Zoo, name string, sector Breed) {
 
 func AddAnimalToSector(sector *Sector, animal *Animal) {
 	*sector.Animals = append(*sector.Animals, *animal)
+}
+
+func (a *Animal) FeedAnimal() {
+	a.IsAte = true
 }

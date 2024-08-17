@@ -46,3 +46,12 @@ func TestAddAnimalToSector(t *testing.T) {
 		t.Error("Op")
 	}
 }
+
+func TestFeedAnimal(t *testing.T) {
+	zoo := NewZoo()
+	a := FindAnimal(zoo, "Donald")
+	a.FeedAnimal()
+	if !a.IsAte {
+		t.Error("Donald is hungry")
+	}
+}
