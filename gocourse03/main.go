@@ -79,7 +79,7 @@ func moveThroughtCenter(
 	rodent.FromTo = [2]Sector{from, to}
 
 	rodent.Sector = RemoveFromSectorArr(id, *rodent.Sector)
-	rodent.Sector = GetSectorArr(to, &westRodents, &eastRodents, &northRodents, &southRodents)
+	rodent.Sector = SectorSlice(to, &westRodents, &eastRodents, &northRodents, &southRodents)
 
 	var c []Rodent = *rodent.Sector
 	c = append(c, *rodent)
@@ -96,7 +96,7 @@ func FindRodent(id int, rodents [4]Rodent) *Rodent {
 	return nil
 }
 
-func GetSectorArr(
+func SectorSlice(
 	name Sector,
 	westRodents *[]Rodent,
 	eastRodents *[]Rodent,
@@ -117,12 +117,12 @@ func GetSectorArr(
 }
 
 func RemoveFromSectorArr(id int, arr []Rodent) *[]Rodent {
-	index := GetIndex(arr, id)
+	index := Index(arr, id)
 	arr = append(arr[:index], arr[index+1:]...)
 	return &arr
 }
 
-func GetIndex(arr []Rodent, id int) int {
+func Index(arr []Rodent, id int) int {
 	for i := 0; i < len(arr); i++ {
 		if arr[i].ID == id {
 			return i
