@@ -89,8 +89,8 @@ func moveThroughCenter(
 }
 
 func FindRodentIndex(id int, rodents [4]Rodent) int {
-	for i := 0; i < len(rodents); i++ {
-		if rodents[i].ID == id {
+	for i, v := range rodents {
+		if v.ID == id {
 			return i
 		}
 	}
@@ -117,12 +117,13 @@ func SectorSlice(
 	}
 }
 
-func Index(arr []Rodent, id int) int {
-	for i := 0; i < len(arr); i++ {
-		if arr[i].ID == id {
+func Index(slice []Rodent, id int) int {
+	for i, v := range slice {
+		if v.ID == id {
 			return i
 		}
 	}
+
 	return -1
 }
 
