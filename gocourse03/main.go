@@ -23,10 +23,6 @@ type RodentType string
 type Sector string
 
 func main() {
-	var westRodents []Rodent
-	var eastRodents []Rodent
-	var northRodents []Rodent
-	var southRodents []Rodent
 	var movements []Movement
 
 	rodents := [4]Rodent{
@@ -36,10 +32,10 @@ func main() {
 		{ID: 4, RodentType: Hackwrench, FromTo: [2]Sector{NorthSector, NorthSector}},
 	}
 
-	westRodents = []Rodent{rodents[0]}
-	eastRodents = []Rodent{rodents[1]}
-	southRodents = []Rodent{rodents[2]}
-	northRodents = []Rodent{rodents[3]}
+	westRodents := []Rodent{rodents[0]}
+	eastRodents := []Rodent{rodents[1]}
+	southRodents := []Rodent{rodents[2]}
+	northRodents := []Rodent{rodents[3]}
 
 	PrintLocations(&rodents, &movements)
 
