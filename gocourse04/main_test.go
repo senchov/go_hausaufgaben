@@ -43,7 +43,7 @@ func TestAddAnimalToSector(t *testing.T) {
 	sector := zoo.Areas[Mammals].Sectors[Meerkat]
 	AddAnimalToSector(&sector, &Animal{Name: "Test"})
 	if len(*sector.Animals) != 2 {
-		t.Error("Op")
+		t.Error("Not right amount of animals")
 	}
 }
 
