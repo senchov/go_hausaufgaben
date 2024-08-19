@@ -11,11 +11,11 @@ const (
 	Cheaser    RodentType = "Cheaser"
 	Hackwrench RodentType = "Hackwrench"
 
-	NorthSector Sector = "North"
-	SouthSector Sector = "South"
-	WestSector  Sector = "West"
-	EastSector  Sector = "East"
-	Center      Sector = "Center"
+	NorthSector  Sector = "North"
+	SouthSector  Sector = "South"
+	WestSector   Sector = "West"
+	EastSector   Sector = "East"
+	CenterSector Sector = "Center"
 )
 
 type RodentType string
