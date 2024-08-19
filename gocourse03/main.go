@@ -25,7 +25,7 @@ type Sector string
 func main() {
 	var movements []Movement
 
-	rodents := [4]Rodent{
+	rodents := []Rodent{
 		{ID: 1, RodentType: Chip, FromTo: [2]Sector{WestSector, WestSector}},
 		{ID: 2, RodentType: Dale, FromTo: [2]Sector{EastSector, EastSector}},
 		{ID: 3, RodentType: Cheaser, FromTo: [2]Sector{SouthSector, SouthSector}},
@@ -74,12 +74,12 @@ func moveThroughCenter(
 	to Sector,
 	param RodentParametr,
 ) {
-	rIndex := Index(param.Rodents[:], id)
-	param.Rodents[rIndex].FromTo[0] = from
-	param.Rodents[rIndex].FromTo[1] = to
+	rIndex := Index(*param.Rodents, id)
+	(*param.Rodents)[rIndex].FromTo[0] = from
+	(*param.Rodents)[rIndex].FromTo[1] = to
 
 	dst := SectorSlice(to, param.WestRodents, param.EastRodents, param.NorthRodents, param.SouthRodents)
-	*dst = append(*dst, param.Rodents[rIndex])
+	*dst = append(*dst, (*param.Rodents)[rIndex])
 
 	src := SectorSlice(from, param.WestRodents, param.EastRodents, param.NorthRodents, param.SouthRodents)
 	index := Index(*src, id)
@@ -118,8 +118,8 @@ func Index(rodentsSlice []Rodent, id int) int {
 	return -1
 }
 
-func PrintLocations(rodents *[4]Rodent, movements *[]Movement) {
-	for _, val := range rodents {
+func PrintLocations(rodents *[]Rodent, movements *[]Movement) {
+	for _, val := range *rodents {
 		fmt.Printf("%s is located in %s sector \n", val.RodentType, val.FromTo[1])
 	}
 
@@ -131,7 +131,7 @@ func PrintLocations(rodents *[4]Rodent, movements *[]Movement) {
 
 type RodentParametr struct {
 	Movements    *[]Movement
-	Rodents      *[4]Rodent
+	Rodents      *[]Rodent
 	WestRodents  *[]Rodent
 	EastRodents  *[]Rodent
 	NorthRodents *[]Rodent
