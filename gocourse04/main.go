@@ -150,7 +150,7 @@ func AnimalIndex(slice []Animal, id int) int {
 	return -1
 }
 
-func MoveAnimal(zoo *Zoo, name string, sector Breed) {
+func (zoo *Zoo) MoveAnimal(name string, sector Breed) {
 	a := zoo.FindAnimal(name)
 	sTarget := zoo.FindSector(sector)
 	AddAnimalToSector(sTarget, a)

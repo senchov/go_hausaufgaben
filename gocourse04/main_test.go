@@ -30,7 +30,7 @@ func TestFindAnimal(t *testing.T) {
 
 func TestMoveAnimal(t *testing.T) {
 	zoo := NewZoo()
-	MoveAnimal(zoo, "Pumbaa", Meerkat)
+	zoo.MoveAnimal("Pumbaa", Meerkat)
 	animalsInMeerkat := *zoo.Areas[Mammals].Sectors[Meerkat].Animals
 
 	if animalsInMeerkat[1].Name != "Pumbaa" {
