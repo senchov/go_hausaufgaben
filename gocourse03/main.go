@@ -37,12 +37,21 @@ func main() {
 	southRodents := []Rodent{rodents[2]}
 	northRodents := []Rodent{rodents[3]}
 
+	param := RodentParametr{
+		Rodents:      &rodents,
+		WestRodents:  &westRodents,
+		EastRodents:  &eastRodents,
+		SouthRodents: &southRodents,
+		NorthRodents: &northRodents,
+		Movements:    &movements,
+	}
+
 	PrintLocations(&rodents, &movements)
 
-	moveThroughCenter(1, time.Now().Add(10), WestSector, EastSector, &movements, &rodents, &westRodents, &eastRodents, &northRodents, &southRodents)
-	moveThroughCenter(2, time.Now().Add(11), EastSector, NorthSector, &movements, &rodents, &westRodents, &eastRodents, &northRodents, &southRodents)
-	moveThroughCenter(2, time.Now().Add(12), NorthSector, SouthSector, &movements, &rodents, &westRodents, &eastRodents, &northRodents, &southRodents)
-	moveThroughCenter(3, time.Now().Add(13), SouthSector, WestSector, &movements, &rodents, &westRodents, &eastRodents, &northRodents, &southRodents)
+	moveThroughCenter(1, time.Now().Add(10), WestSector, EastSector, param)
+	moveThroughCenter(2, time.Now().Add(11), EastSector, NorthSector, param)
+	moveThroughCenter(2, time.Now().Add(12), NorthSector, SouthSector, param)
+	moveThroughCenter(3, time.Now().Add(13), SouthSector, WestSector, param)
 
 	PrintLocations(&rodents, &movements)
 }
@@ -63,25 +72,20 @@ func moveThroughCenter(
 	moveTime time.Time,
 	from Sector,
 	to Sector,
-	movements *[]Movement,
-	rodents *[4]Rodent,
-	westRodents *[]Rodent,
-	eastRodents *[]Rodent,
-	northRodents *[]Rodent,
-	southRodents *[]Rodent,
+	param RodentParametr,
 ) {
-	rIndex := Index(rodents[:], id)
-	rodents[rIndex].FromTo[0] = from
-	rodents[rIndex].FromTo[1] = to
+	rIndex := Index(param.Rodents[:], id)
+	param.Rodents[rIndex].FromTo[0] = from
+	param.Rodents[rIndex].FromTo[1] = to
 
-	dst := SectorSlice(to, westRodents, eastRodents, northRodents, southRodents)
-	*dst = append(*dst, rodents[rIndex])
+	dst := SectorSlice(to, param.WestRodents, param.EastRodents, param.NorthRodents, param.SouthRodents)
+	*dst = append(*dst, param.Rodents[rIndex])
 
-	src := SectorSlice(from, westRodents, eastRodents, northRodents, southRodents)
+	src := SectorSlice(from, param.WestRodents, param.EastRodents, param.NorthRodents, param.SouthRodents)
 	index := Index(*src, id)
 	*src = append((*src)[:index], (*src)[index+1:]...)
 
-	*movements = append(*movements, Movement{MoveTime: moveTime, FromTo: [2]Sector{WestSector, EastSector}})
+	*param.Movements = append(*param.Movements, Movement{MoveTime: moveTime, FromTo: [2]Sector{from, to}})
 }
 
 func SectorSlice(
@@ -123,4 +127,13 @@ func PrintLocations(rodents *[4]Rodent, movements *[]Movement) {
 		fmt.Printf("At time %v move from %s to %s \n", val.MoveTime, val.FromTo[0], val.FromTo[1])
 	}
 	fmt.Println("----------------")
+}
+
+type RodentParametr struct {
+	Movements    *[]Movement
+	Rodents      *[4]Rodent
+	WestRodents  *[]Rodent
+	EastRodents  *[]Rodent
+	NorthRodents *[]Rodent
+	SouthRodents *[]Rodent
 }
