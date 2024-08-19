@@ -131,7 +131,7 @@ func (zoo *Zoo) FindAnimalSector(name string) *Sector {
 	return nil
 }
 
-func FindSector(zoo *Zoo, sector Breed) *Sector {
+func (zoo *Zoo) FindSector(sector Breed) *Sector {
 	for _, area := range zoo.Areas {
 		v, ok := area.Sectors[sector]
 		if ok {
@@ -152,7 +152,7 @@ func AnimalIndex(slice *[]Animal, id int) int {
 
 func MoveAnimal(zoo *Zoo, name string, sector Breed) {
 	a := zoo.FindAnimal(name)
-	sTarget := FindSector(zoo, sector)
+	sTarget := zoo.FindSector(sector)
 	AddAnimalToSector(sTarget, a)
 
 	sSourse := zoo.FindAnimalSector(name)
