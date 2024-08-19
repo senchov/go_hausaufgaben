@@ -12,7 +12,7 @@ const (
 	Horses   Breed = "Horses"
 	Pony     Breed = "Pony"
 	Ducks    Breed = "Ducks"
-	Warthoag Breed = "Warthoag"
+	Warthoag Breed = "Warthog"
 	Meerkat  Breed = "Meerkat"
 )
 
