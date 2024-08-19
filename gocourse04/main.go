@@ -8,11 +8,12 @@ const (
 	Ungulates AnimalType = "Ungulates"
 	Feathered AnimalType = "Feathered"
 	Mammals   AnimalType = "Mammals"
-	Horses    Breed      = "Horses"
-	Pony      Breed      = "Pony"
-	Ducks     Breed      = "Ducks"
-	Warthoag  Breed      = "Warthoag"
-	Meerkat   Breed      = "Meerkat"
+
+	Horses   Breed = "Horses"
+	Pony     Breed = "Pony"
+	Ducks    Breed = "Ducks"
+	Warthoag Breed = "Warthoag"
+	Meerkat  Breed = "Meerkat"
 )
 
 func main() {
