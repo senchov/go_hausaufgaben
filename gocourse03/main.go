@@ -70,7 +70,7 @@ func moveThroughCenter(
 	northRodents *[]Rodent,
 	southRodents *[]Rodent,
 ) {
-	rIndex := FindRodentIndex(id, *rodents)
+	rIndex := Index(rodents[:], id)
 	rodents[rIndex].FromTo[0] = from
 	rodents[rIndex].FromTo[1] = to
 
@@ -82,15 +82,6 @@ func moveThroughCenter(
 	*src = append((*src)[:index], (*src)[index+1:]...)
 
 	*movements = append(*movements, Movement{MoveTime: moveTime, FromTo: [2]Sector{WestSector, EastSector}})
-}
-
-func FindRodentIndex(id int, rodents [4]Rodent) int {
-	for i, v := range rodents {
-		if v.ID == id {
-			return i
-		}
-	}
-	return -1
 }
 
 func SectorSlice(
