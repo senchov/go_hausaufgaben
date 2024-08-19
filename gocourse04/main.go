@@ -117,7 +117,7 @@ func (zoo *Zoo) FindAnimal(name string) *Animal {
 	return nil
 }
 
-func FindAnimalSector(zoo *Zoo, name string) *Sector {
+func (zoo *Zoo) FindAnimalSector(name string) *Sector {
 	for _, area := range zoo.Areas {
 		for _, sector := range area.Sectors {
 			for _, a := range *sector.Animals {
@@ -155,7 +155,7 @@ func MoveAnimal(zoo *Zoo, name string, sector Breed) {
 	sTarget := FindSector(zoo, sector)
 	AddAnimalToSector(sTarget, a)
 
-	sSourse := FindAnimalSector(zoo, name)
+	sSourse := zoo.FindAnimalSector(name)
 	sourseIndex := AnimalIndex(sSourse.Animals, a.ID)
 	*sSourse.Animals = append((*sSourse.Animals)[:sourseIndex], (*sSourse.Animals)[sourseIndex+1:]...)
 }
