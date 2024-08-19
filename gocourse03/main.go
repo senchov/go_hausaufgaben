@@ -78,17 +78,17 @@ func moveThroughCenter(
 	(*param.Rodents)[rIndex].FromTo[0] = from
 	(*param.Rodents)[rIndex].FromTo[1] = to
 
-	dst := SectorSlice(to, param.WestRodents, param.EastRodents, param.NorthRodents, param.SouthRodents)
+	dst := FindSectorSlice(to, param.WestRodents, param.EastRodents, param.NorthRodents, param.SouthRodents)
 	*dst = append(*dst, (*param.Rodents)[rIndex])
 
-	src := SectorSlice(from, param.WestRodents, param.EastRodents, param.NorthRodents, param.SouthRodents)
+	src := FindSectorSlice(from, param.WestRodents, param.EastRodents, param.NorthRodents, param.SouthRodents)
 	index := Index(*src, id)
 	*src = append((*src)[:index], (*src)[index+1:]...)
 
 	*param.Movements = append(*param.Movements, Movement{MoveTime: moveTime, FromTo: [2]Sector{from, to}})
 }
 
-func SectorSlice(
+func FindSectorSlice(
 	name Sector,
 	westRodents *[]Rodent,
 	eastRodents *[]Rodent,
