@@ -103,7 +103,7 @@ func NewZoo() *Zoo {
 }
 
 // Реалізувати функції пошуку тварини за імʼям або ID, переміщення тварини із загону в загін, годування тварини.
-func FindAnimal(zoo *Zoo, name string) *Animal {
+func (zoo *Zoo) FindAnimal(name string) *Animal {
 	for _, area := range zoo.Areas {
 		for _, sector := range area.Sectors {
 			for _, a := range *sector.Animals {
@@ -151,7 +151,7 @@ func AnimalIndex(slice *[]Animal, id int) int {
 }
 
 func MoveAnimal(zoo *Zoo, name string, sector Breed) {
-	a := FindAnimal(zoo, name)
+	a := zoo.FindAnimal(name)
 	sTarget := FindSector(zoo, sector)
 	AddAnimalToSector(sTarget, a)
 

@@ -17,12 +17,12 @@ func TestNewZoo(t *testing.T) {
 
 func TestFindAnimal(t *testing.T) {
 	zoo := NewZoo()
-	a := FindAnimal(zoo, "Timon")
+	a := zoo.FindAnimal("Timon")
 	if a == nil {
 		t.Error("Timon is absent")
 	}
 
-	fake := FindAnimal(zoo, "FakeTimon")
+	fake := zoo.FindAnimal("FakeTimon")
 	if fake != nil {
 		t.Error("FakeTimon is present")
 	}
@@ -49,7 +49,7 @@ func TestAddAnimalToSector(t *testing.T) {
 
 func TestFeedAnimal(t *testing.T) {
 	zoo := NewZoo()
-	a := FindAnimal(zoo, "Donald")
+	a := zoo.FindAnimal("Donald")
 	a.FeedAnimal()
 	if !a.IsAte {
 		t.Error("Donald is hungry")
