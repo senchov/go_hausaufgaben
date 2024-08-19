@@ -104,8 +104,8 @@ func SectorSlice(
 	}
 }
 
-func Index(slice []Rodent, id int) int {
-	for i, v := range slice {
+func Index(rodentsSlice []Rodent, id int) int {
+	for i, v := range rodentsSlice {
 		if v.ID == id {
 			return i
 		}
