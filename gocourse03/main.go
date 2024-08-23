@@ -48,10 +48,11 @@ func main() {
 
 	PrintLocations(&rodents, &movements)
 
-	moveThroughCenter(1, time.Now().Add(10), WestSector, EastSector, param)
-	moveThroughCenter(2, time.Now().Add(11), EastSector, NorthSector, param)
-	moveThroughCenter(2, time.Now().Add(12), NorthSector, SouthSector, param)
-	moveThroughCenter(3, time.Now().Add(13), SouthSector, WestSector, param)
+	now := time.Now()
+	moveThroughCenter(1, now.Add(10*time.Minute), WestSector, EastSector, param)
+	moveThroughCenter(2, now.Add(11*time.Minute), EastSector, NorthSector, param)
+	moveThroughCenter(2, now.Add(12*time.Minute), NorthSector, SouthSector, param)
+	moveThroughCenter(3, now.Add(13*time.Minute), SouthSector, WestSector, param)
 
 	PrintLocations(&rodents, &movements)
 }
