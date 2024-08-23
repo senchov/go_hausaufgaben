@@ -1,88 +1,25 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"gocourse05/security"
+)
 
 func main() {
-	records := []AnimalRecord{}
 
-	ptz := PTZCamera{Angle: 0, Range: 10}
-	nv := NightvisionCamera{Angle: 30, Range: 6}
+	records := []security.AnimalRecord{}
+	fmt.Println(records)
+	ptz := security.NewPTZCamera(0, 10)
+	nv := security.NewNightvisionCamera(30, 6)
 
-	ptz.Record(Conditions{IsNight: false, DistToAnimal: 2, Battery: 100}, &records, AnimalRecord{Bear, Sleep})
-	ptz.Record(Conditions{IsNight: true, DistToAnimal: 4, Battery: 100}, &records, AnimalRecord{Bear, Sleep})
-	nv.Record(Conditions{IsNight: true, DistToAnimal: 5, Battery: 100}, &records, AnimalRecord{Tiger, Walking})
-	ptz.Record(Conditions{IsNight: false, DistToAnimal: 5, Battery: 100}, &records, AnimalRecord{Rat, Eat})
-	nv.Record(Conditions{IsNight: true, DistToAnimal: 50, Battery: 100}, &records, AnimalRecord{Tiger, Walking})
-	nv.Record(Conditions{IsNight: true, DistToAnimal: 3, Battery: 100}, &records, AnimalRecord{Tiger, Walking})
+	ptz.Record(*security.NewConditions(false, 2, 100), &records, *security.NewAnimalRecord(security.Bear, security.Sleep))
+	ptz.Record(*security.NewConditions(true, 4, 100), &records, *security.NewAnimalRecord(security.Bear, security.Sleep))
+	nv.Record(*security.NewConditions(true, 5, 100), &records, *security.NewAnimalRecord(security.Tiger, security.Walking))
+	ptz.Record(*security.NewConditions(false, 5, 100), &records, *security.NewAnimalRecord(security.Rat, security.Eat))
+	nv.Record(*security.NewConditions(true, 50, 100), &records, *security.NewAnimalRecord(security.Tiger, security.Walking))
+	nv.Record(*security.NewConditions(true, 3, 100), &records, *security.NewAnimalRecord(security.Tiger, security.Walking))
 
 	for _, v := range records {
 		fmt.Println(v)
-	}
-}
-
-type Rotater interface {
-	Rotate(angle float32)
-}
-
-type Recorder interface {
-	Record(c Conditions, records *[]AnimalRecord, rec AnimalRecord)
-}
-
-type AnimalRecord struct {
-	AnimalType
-	AnimalAction
-}
-
-type AnimalType string
-type AnimalAction string
-
-const (
-	Bear  AnimalType = "Bear"
-	Tiger AnimalType = "Tiger"
-	Rat   AnimalType = "Rat"
-
-	Sleep   AnimalAction = "Sleep"
-	Eat     AnimalAction = "Eat"
-	Walking AnimalAction = "Walking"
-)
-
-type Conditions struct {
-	IsNight      bool
-	DistToAnimal float32
-	Battery      int
-}
-
-type PTZCamera struct {
-	Range float32
-	Angle float32
-}
-
-func (ptz *PTZCamera) Rotate(angle float32) {
-	ptz.Angle += angle
-}
-
-func (ptz *PTZCamera) Record(c Conditions, records *[]AnimalRecord, rec AnimalRecord) {
-	if !c.IsNight && ptz.Range > c.DistToAnimal && c.Battery > 0 {
-		*records = append(*records, rec)
-	}
-}
-
-type FixedCamera struct {
-	Range float32
-	Angle float32
-}
-
-func (ptz *FixedCamera) Rotate(angle float32) {
-	ptz.Angle = 0
-}
-
-type NightvisionCamera struct {
-	Range float32
-	Angle float32
-}
-
-func (nv *NightvisionCamera) Record(c Conditions, records *[]AnimalRecord, rec AnimalRecord) {
-	if c.IsNight && nv.Range > c.DistToAnimal && c.Battery > 0 {
-		*records = append(*records, rec)
 	}
 }
