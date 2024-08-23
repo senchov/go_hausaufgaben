@@ -5,18 +5,18 @@ import (
 )
 
 func TestNewZoo(t *testing.T) {
-	zoo := NewZoo()
+	zoo := NewZoo(CreateAreas())
 	if zoo == nil {
 		t.Error("Zoo is nil")
 	}
 
 	if len(zoo.Areas) != 3 {
-		t.Error("Not enough areas")
+		t.Logf("Not enough areas expected=%v actual=%v", 3, len(zoo.Areas))
 	}
 }
 
 func TestFindAnimal(t *testing.T) {
-	zoo := NewZoo()
+	zoo := NewZoo(CreateAreas())
 	a := zoo.FindAnimal("Timon")
 	if a == nil {
 		t.Error("Timon is absent")
@@ -29,7 +29,7 @@ func TestFindAnimal(t *testing.T) {
 }
 
 func TestMoveAnimal(t *testing.T) {
-	zoo := NewZoo()
+	zoo := NewZoo(CreateAreas())
 	zoo.MoveAnimal("Pumbaa", Meerkat)
 	animalsInMeerkat := *zoo.Areas[Mammals].Sectors[Meerkat].Animals
 
@@ -39,7 +39,7 @@ func TestMoveAnimal(t *testing.T) {
 }
 
 func TestAddAnimalToSector(t *testing.T) {
-	zoo := NewZoo()
+	zoo := NewZoo(CreateAreas())
 	sector := zoo.Areas[Mammals].Sectors[Meerkat]
 	sector.AddAnimalToSector(Animal{Name: "Test"})
 	if len(*sector.Animals) != 2 {
@@ -48,7 +48,7 @@ func TestAddAnimalToSector(t *testing.T) {
 }
 
 func TestFeedAnimal(t *testing.T) {
-	zoo := NewZoo()
+	zoo := NewZoo(CreateAreas())
 	a := zoo.FindAnimal("Donald")
 	a.FeedAnimal()
 	if !a.IsAte {

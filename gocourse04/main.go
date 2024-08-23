@@ -18,7 +18,7 @@ const (
 
 func main() {
 	fmt.Println("Start")
-	zoo := NewZoo()
+	zoo := NewZoo(CreateAreas())
 	fmt.Println(zoo)
 }
 
@@ -47,62 +47,62 @@ type Zoo struct {
 type AnimalType string
 type Breed string
 
-func NewZoo() *Zoo {
-	zoo := Zoo{
-		Areas: map[AnimalType]Area{
-			Ungulates: Area{
-				Number: 1,
-				Sectors: map[Breed]Sector{
-					Horses: Sector{
-						Subtype: Horses,
-						Animals: &[]Animal{
-							{ID: 1, Name: "Mike"},
-							{ID: 2, Name: "Roach"},
-						},
+func NewZoo(areas map[AnimalType]Area) *Zoo {
+	return &Zoo{Areas: areas}
+}
+
+func CreateAreas() map[AnimalType]Area {
+	areas := map[AnimalType]Area{
+		Ungulates: Area{
+			Number: 1,
+			Sectors: map[Breed]Sector{
+				Horses: Sector{
+					Subtype: Horses,
+					Animals: &[]Animal{
+						{ID: 1, Name: "Mike"},
+						{ID: 2, Name: "Roach"},
 					},
-					Pony: Sector{
-						Subtype: Pony,
-						Animals: &[]Animal{
-							{ID: 3, Name: "Arnold"},
-						},
+				},
+				Pony: Sector{
+					Subtype: Pony,
+					Animals: &[]Animal{
+						{ID: 3, Name: "Arnold"},
 					},
 				},
 			},
-			Feathered: Area{
-				Number: 2,
-				Sectors: map[Breed]Sector{
-					Ducks: Sector{
-						Subtype: Ducks,
-						Animals: &[]Animal{
-							{ID: 4, Name: "Donald"},
-						},
+		},
+		Feathered: Area{
+			Number: 2,
+			Sectors: map[Breed]Sector{
+				Ducks: Sector{
+					Subtype: Ducks,
+					Animals: &[]Animal{
+						{ID: 4, Name: "Donald"},
 					},
 				},
 			},
-			Mammals: Area{
-				Number: 3,
-				Sectors: map[Breed]Sector{
-					Warthog: Sector{
-						Subtype: Warthog,
-						Animals: &[]Animal{
-							{ID: 5, Name: "Pumbaa"},
-						},
+		},
+		Mammals: Area{
+			Number: 3,
+			Sectors: map[Breed]Sector{
+				Warthog: Sector{
+					Subtype: Warthog,
+					Animals: &[]Animal{
+						{ID: 5, Name: "Pumbaa"},
 					},
-					Meerkat: Sector{
-						Subtype: Meerkat,
-						Animals: &[]Animal{
-							{ID: 6, Name: "Timon"},
-						},
+				},
+				Meerkat: Sector{
+					Subtype: Meerkat,
+					Animals: &[]Animal{
+						{ID: 6, Name: "Timon"},
 					},
 				},
 			},
 		},
 	}
-
-	return &zoo
+	return areas
 }
 
-// Реалізувати функції пошуку тварини за імʼям або ID, переміщення тварини із загону в загін, годування тварини.
 func (zoo *Zoo) FindAnimal(name string) *Animal {
 	for _, area := range zoo.Areas {
 		for _, sector := range area.Sectors {
