@@ -9,11 +9,11 @@ const (
 	Feathered AnimalType = "Feathered"
 	Mammals   AnimalType = "Mammals"
 
-	Horses   Breed = "Horses"
-	Pony     Breed = "Pony"
-	Ducks    Breed = "Ducks"
-	Warthoag Breed = "Warthog"
-	Meerkat  Breed = "Meerkat"
+	Horses  Breed = "Horses"
+	Pony    Breed = "Pony"
+	Ducks   Breed = "Ducks"
+	Warthog Breed = "Warthog"
+	Meerkat Breed = "Meerkat"
 )
 
 func main() {
@@ -82,8 +82,8 @@ func NewZoo() *Zoo {
 			Mammals: Area{
 				Number: 3,
 				Sectors: map[Breed]Sector{
-					Warthoag: Sector{
-						Subtype: Warthoag,
+					Warthog: Sector{
+						Subtype: Warthog,
 						Animals: &[]Animal{
 							{ID: 5, Name: "Pumbaa"},
 						},
@@ -141,9 +141,9 @@ func (zoo *Zoo) FindSector(sector Breed) *Sector {
 	return nil
 }
 
-func AnimalIndex(slice []Animal, id int) int {
-	for i := 0; i < len(slice); i++ {
-		if slice[i].ID == id {
+func AnimalIndex(animals []Animal, id int) int {
+	for i := 0; i < len(animals); i++ {
+		if animals[i].ID == id {
 			return i
 		}
 	}
