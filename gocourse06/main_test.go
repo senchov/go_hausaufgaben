@@ -38,3 +38,19 @@ func TestCollectData(t *testing.T) {
 		t.Error("Data should be undefined if name is empthy")
 	}
 }
+
+func TestIsShouldOpenCage(t *testing.T) {
+	firstCageLock := make(chan bool)
+	secondCageLock := make(chan bool)
+	go IsShouldOpenCage(5, firstCageLock)
+	go IsShouldOpenCage(10, secondCageLock)
+	f := <-firstCageLock
+	if f {
+		t.Error("First cage should be locked but it opened")
+	}
+
+	s := <-secondCageLock
+	if !s {
+		t.Error("Second cage should be closed but it oepned")
+	}
+}

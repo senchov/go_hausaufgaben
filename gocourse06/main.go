@@ -37,3 +37,14 @@ func CollectData(a Animal, data chan string) {
 	r := fmt.Sprintf("Animal->%s is mood->%s health->%v hunger->%v", a.Name, a.Mood, a.Health, a.Hunger)
 	data <- r
 }
+
+// Керування доступом до вольєрів: Імплементуйте горутину, яка контролює доступ до вольєрів,
+// використовуючи канали для отримання запитів на відкриття/закриття.
+func IsShouldOpenCage(hour int, data chan bool) {
+	if hour < 8 || hour > 18 {
+		data <- false
+	} else {
+		data <- true
+	}
+
+}
