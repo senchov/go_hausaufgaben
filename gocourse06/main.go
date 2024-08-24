@@ -48,3 +48,18 @@ func IsShouldOpenCage(hour int, data chan bool) {
 	}
 
 }
+
+// Розробіть горутини для управління автоматичними кормушками, які відправляють статус кормушки (порожня/повна)
+// через канал.
+type Trough struct {
+	ID     int
+	Amount int
+}
+
+func CheckTrough(t Trough, full chan int, empty chan int) {
+	if t.Amount > 50 {
+		full <- t.ID
+	} else {
+		empty <- t.ID
+	}
+}

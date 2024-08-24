@@ -54,3 +54,32 @@ func TestIsShouldOpenCage(t *testing.T) {
 		t.Error("Second cage should be closed but it oepned")
 	}
 }
+
+func TestCheckTrough(t *testing.T) {
+	full := make(chan int, 2)
+	empty := make(chan int, 1)
+	go CheckTrough(Trough{ID: 1, Amount: 100}, full, empty)
+	go CheckTrough(Trough{ID: 2, Amount: 60}, full, empty)
+	go CheckTrough(Trough{ID: 3, Amount: 40}, full, empty)
+	go CheckTrough(Trough{ID: 4, Amount: 0}, full, empty)
+
+	fullIds := []int{
+		<-full,
+		<-full,
+	}
+	for i, v := range fullIds {
+		if v != i+1 {
+			t.Logf("Wrong id->%v, expexted%v", v, i+1)
+		}
+	}
+
+	emptyIds := []int{
+		<-empty,
+		<-empty,
+	}
+	for i, v := range emptyIds {
+		if v != i+3 {
+			t.Logf("Wrong id->%v, expexted%v", v, i+3)
+		}
+	}
+}
