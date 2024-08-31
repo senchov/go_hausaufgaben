@@ -41,7 +41,7 @@ func TestMoveAnimal(t *testing.T) {
 func TestAddAnimalToSector(t *testing.T) {
 	zoo := NewZoo(CreateAreas())
 	sector := zoo.Areas[Mammals].Sectors[Meerkat]
-	sector.AddAnimalToSector(Animal{Name: "Test"})
+	sector.AddAnimal(Animal{Name: "Test"})
 	if len(*sector.Animals) != 2 {
 		t.Logf("Not right amount of animals: want=%v, but got=%v", 2, len(*sector.Animals))
 	}

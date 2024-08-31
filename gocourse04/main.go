@@ -153,14 +153,14 @@ func AnimalIndex(animals []Animal, id int) int {
 func (zoo *Zoo) MoveAnimal(name string, sector Breed) {
 	a := zoo.FindAnimal(name)
 	sTarget := zoo.FindSector(sector)
-	sTarget.AddAnimalToSector(*a)
+	sTarget.AddAnimal(*a)
 
 	sSource := zoo.FindAnimalSector(name)
 	sourсeIndex := AnimalIndex(*sSource.Animals, a.ID)
 	*sSource.Animals = append((*sSource.Animals)[:sourсeIndex], (*sSource.Animals)[sourсeIndex+1:]...)
 }
 
-func (sector *Sector) AddAnimalToSector(animal Animal) {
+func (sector *Sector) AddAnimal(animal Animal) {
 	*sector.Animals = append(*sector.Animals, animal)
 }
 
