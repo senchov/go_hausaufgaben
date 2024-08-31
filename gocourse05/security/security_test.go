@@ -6,7 +6,7 @@ func TestRotate(t *testing.T) {
 	ptz := NewPTZCamera(0, 0)
 	ptz.Rotate(30)
 	if ptz.Angle < 30 {
-		t.Error("PTZ camera dosen't rotate")
+		t.Error("PTZ camera doesn't rotate")
 	}
 
 	fixed := NewFixedCamera(0, 0)
