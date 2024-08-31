@@ -1,3 +1,3 @@
 module github.com/senchov/go_hausaufgaben
 
-go 1.22.6
+go 1.23.0

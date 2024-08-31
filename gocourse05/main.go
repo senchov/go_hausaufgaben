@@ -6,7 +6,6 @@ import (
 )
 
 func main() {
-
 	records := []security.AnimalRecord{}
 	fmt.Println(records)
 	ptz := security.NewPTZCamera(0, 10)
