@@ -12,7 +12,7 @@ func TestRotate(t *testing.T) {
 	fixed := NewFixedCamera(0, 0)
 	fixed.Rotate(90)
 	if fixed.Angle != 0 {
-		t.Error("Fixed camera shouldnt rotate")
+		t.Error("Fixed camera shouldn't rotate")
 	}
 }
 
