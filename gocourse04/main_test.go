@@ -11,7 +11,7 @@ func TestNewZoo(t *testing.T) {
 	}
 
 	if len(zoo.Areas) != 3 {
-		t.Logf("Not enough areas expected=%v actual=%v", 3, len(zoo.Areas))
+		t.Errorf("Not enough areas expected=%v actual=%v", 3, len(zoo.Areas))
 	}
 }
 
@@ -43,7 +43,7 @@ func TestAddAnimalToSector(t *testing.T) {
 	sector := zoo.Areas[Mammals].Sectors[Meerkat]
 	sector.AddAnimal(Animal{Name: "Test"})
 	if len(*sector.Animals) != 2 {
-		t.Logf("Not right amount of animals: want=%v, but got=%v", 2, len(*sector.Animals))
+		t.Errorf("Not right amount of animals: want=%v, but got=%v", 2, len(*sector.Animals))
 	}
 }
 
