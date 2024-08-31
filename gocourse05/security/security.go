@@ -1,5 +1,8 @@
 package security
 
+type Range float32
+type Angle float32
+
 type Rotater interface {
 	Rotate(angle float32)
 }
@@ -35,11 +38,11 @@ const (
 
 type Conditions struct {
 	IsNight      bool
-	DistToAnimal float32
+	DistToAnimal Range
 	Battery      int
 }
 
-func NewConditions(isNight bool, dst float32, battery int) *Conditions {
+func NewConditions(isNight bool, dst Range, battery int) *Conditions {
 	return &Conditions{
 		IsNight:      isNight,
 		DistToAnimal: dst,
@@ -48,18 +51,18 @@ func NewConditions(isNight bool, dst float32, battery int) *Conditions {
 }
 
 type PTZCamera struct {
-	Range float32
-	Angle float32
+	Range
+	Angle
 }
 
-func NewPTZCamera(r float32, a float32) *PTZCamera {
+func NewPTZCamera(r Range, a Angle) *PTZCamera {
 	return &PTZCamera{
 		Range: r,
 		Angle: a,
 	}
 }
 
-func (ptz *PTZCamera) Rotate(angle float32) {
+func (ptz *PTZCamera) Rotate(angle Angle) {
 	ptz.Angle += angle
 }
 
@@ -70,11 +73,11 @@ func (ptz *PTZCamera) Record(c Conditions, records *[]AnimalRecord, rec AnimalRe
 }
 
 type FixedCamera struct {
-	Range float32
-	Angle float32
+	Range
+	Angle
 }
 
-func NewFixedCamera(r float32, a float32) *FixedCamera {
+func NewFixedCamera(r Range, a Angle) *FixedCamera {
 	return &FixedCamera{
 		Range: r,
 		Angle: a,
@@ -86,11 +89,11 @@ func (ptz *FixedCamera) Rotate(angle float32) {
 }
 
 type NightvisionCamera struct {
-	Range float32
-	Angle float32
+	Range
+	Angle
 }
 
-func NewNightvisionCamera(r float32, a float32) *NightvisionCamera {
+func NewNightvisionCamera(r Range, a Angle) *NightvisionCamera {
 	return &NightvisionCamera{
 		Range: r,
 		Angle: a,
