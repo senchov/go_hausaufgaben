@@ -21,7 +21,7 @@ func TestRecord(t *testing.T) {
 	records := []AnimalRecord{}
 	ptz.Record(*NewConditions(false, 5, 100), &records, *NewAnimalRecord(Bear, Sleep))
 	if len(records) == 0 {
-		t.Error("Doesen't record anything")
+		t.Error("Doesn't record anything")
 	}
 
 	ptz.Record(*NewConditions(true, 5, 100), &records, *NewAnimalRecord(Bear, Sleep))
