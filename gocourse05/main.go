@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"gocourse05/security"
+	"math/rand"
 )
 
 func main() {
@@ -23,6 +24,28 @@ func main() {
 	ptz.Record(*security.NewConditions(false, 27, 100), &records, *security.NewAnimalRecord(security.Rat, security.Eat))
 	nv.Record(*security.NewConditions(true, 33, 100), &records, *security.NewAnimalRecord(security.Rat, security.Walking))
 	nv.Record(*security.NewConditions(true, 3, 100), &records, *security.NewAnimalRecord(security.Bear, security.Eat))
+
+	for _, v := range records {
+		fmt.Println(v)
+	}
+
+	animals := []security.AnimalType{security.Bear, security.Rat, security.Tiger}
+	actions := []security.AnimalAction{security.Eat, security.Sleep, security.Walking}
+	recorders := []security.Recorder{ptz, nv}
+	rotators := []security.Rotater{ptz, nv}
+
+	for i := 0; i < 100; i++ {
+		isNight := rand.Intn(2) == 1
+		distToAnimal := security.Range(rand.Float32() * 20)
+		battery := rand.Intn(101)
+
+		animal := animals[rand.Intn(3)]
+		action := actions[rand.Intn(3)]
+		for j := 0; j < 2; j++ {
+			rotators[j].Rotate(security.Angle(rand.Float32() * 180))
+			recorders[j].Record(*security.NewConditions(isNight, distToAnimal, battery), &records, *security.NewAnimalRecord(animal, action))
+		}
+	}
 
 	for _, v := range records {
 		fmt.Println(v)

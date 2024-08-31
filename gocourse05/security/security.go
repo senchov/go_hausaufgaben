@@ -4,7 +4,7 @@ type Range float32
 type Angle float32
 
 type Rotater interface {
-	Rotate(angle float32)
+	Rotate(angle Angle)
 }
 
 type Recorder interface {
@@ -104,4 +104,8 @@ func (nv *NightvisionCamera) Record(c Conditions, records *[]AnimalRecord, rec A
 	if c.IsNight && nv.Range > c.DistToAnimal && c.Battery > 0 {
 		*records = append(*records, rec)
 	}
+}
+
+func (nv *NightvisionCamera) Rotate(angle Angle) {
+	nv.Angle += angle
 }
