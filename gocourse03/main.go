@@ -48,10 +48,10 @@ func main() {
 	PrintLocations(rodents, movements)
 
 	now := time.Now()
-	movements = *moveThroughCenter(1, now.Add(10*time.Minute), WestSector, EastSector, param, &movements)
-	movements = *moveThroughCenter(2, now.Add(11*time.Minute), EastSector, NorthSector, param, &movements)
-	movements = *moveThroughCenter(2, now.Add(12*time.Minute), NorthSector, SouthSector, param, &movements)
-	movements = *moveThroughCenter(3, now.Add(13*time.Minute), SouthSector, WestSector, param, &movements)
+	movements = moveThroughCenter(1, now.Add(10*time.Minute), WestSector, EastSector, param, movements)
+	movements = moveThroughCenter(2, now.Add(11*time.Minute), EastSector, NorthSector, param, movements)
+	movements = moveThroughCenter(2, now.Add(12*time.Minute), NorthSector, SouthSector, param, movements)
+	movements = moveThroughCenter(3, now.Add(13*time.Minute), SouthSector, WestSector, param, movements)
 
 	PrintLocations(rodents, movements)
 }
@@ -73,8 +73,8 @@ func moveThroughCenter(
 	from Sector,
 	to Sector,
 	param RodentParameter,
-	movements *[]Movement,
-) *[]Movement {
+	movements []Movement,
+) []Movement {
 	rIndex := Index(*param.Rodents, id)
 	(*param.Rodents)[rIndex].FromTo[0] = from
 	(*param.Rodents)[rIndex].FromTo[1] = to
@@ -86,7 +86,7 @@ func moveThroughCenter(
 	index := Index(*src, id)
 	*src = append((*src)[:index], (*src)[index+1:]...)
 
-	*movements = append(*movements, Movement{MoveTime: moveTime, FromTo: [2]Sector{from, to}})
+	movements = append(movements, Movement{MoveTime: moveTime, FromTo: [2]Sector{from, to}})
 	return movements
 }
 
