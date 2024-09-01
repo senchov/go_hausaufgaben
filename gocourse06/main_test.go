@@ -17,19 +17,19 @@ func TestCollectData(t *testing.T) {
 	daveStr := <-daveData
 	fmt.Println(daveStr)
 	if len(daveStr) == 0 {
-		t.Errorf("Dave data is 0 expexted more than zero")
+		t.Errorf("Dave data is 0 expected more than zero")
 	}
 
 	mikeStr := <-mikeData
 	fmt.Println(mikeStr)
 	if len(mikeStr) == 0 {
-		t.Errorf("Mike data is 0 expexted more than zero")
+		t.Errorf("Mike data is 0 expected more than zero")
 	}
 
 	jackStr := <-jackData
 	fmt.Println(jackStr)
 	if len(jackStr) == 0 {
-		t.Errorf("Jack data is 0 expexted more than zero")
+		t.Errorf("Jack data is 0 expected more than zero")
 	}
 
 	uStr := <-undefinedData
@@ -69,7 +69,7 @@ func TestCheckTrough(t *testing.T) {
 	}
 	for i, v := range fullIds {
 		if v > i+1 || v < i {
-			t.Errorf("Wrong id->%v, expexted more then %v and less then %v", v, i+1, i)
+			t.Errorf("Wrong id->%v, expected more then %v and less then %v", v, i+1, i)
 		}
 	}
 
@@ -79,7 +79,7 @@ func TestCheckTrough(t *testing.T) {
 	}
 	for i, v := range emptyIds {
 		if v > i+4 || v < i+2 {
-			t.Errorf("Wrong id->%v, expexted more then %v and less then %v", v, i+4, i+2)
+			t.Errorf("Wrong id->%v, expected more then %v and less then %v", v, i+4, i+2)
 		}
 	}
 }
