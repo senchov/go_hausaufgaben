@@ -85,7 +85,7 @@ type Animal struct {
 	Mood
 }
 
-func CollectData(a Animal, data chan string) {
+func CollectData(a Animal, data chan<- string) {
 	if a.Name == "" {
 		data <- Undefined
 		return
@@ -97,7 +97,7 @@ func CollectData(a Animal, data chan string) {
 
 // Керування доступом до вольєрів: Імплементуйте горутину, яка контролює доступ до вольєрів,
 // використовуючи канали для отримання запитів на відкриття/закриття.
-func IsShouldOpenCage(hour int, data chan bool) {
+func IsShouldOpenCage(hour int, data chan<- bool) {
 	if hour < 8 || hour > 18 {
 		data <- false
 	} else {
@@ -113,7 +113,7 @@ type Trough struct {
 	Amount int
 }
 
-func CheckTrough(t Trough, full chan int, empty chan int) {
+func CheckTrough(t Trough, full chan<- int, empty chan<- int) {
 	if t.Amount > 50 {
 		full <- t.ID
 	} else {

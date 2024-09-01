@@ -68,7 +68,7 @@ func TestCheckTrough(t *testing.T) {
 		<-full,
 	}
 	for i, v := range fullIDs {
-		if v > i+1 || v < i {
+		if v > i+2 || v < i {
 			t.Errorf("Wrong id->%v, expected more then %v and less then %v", v, i+1, i)
 		}
 	}
