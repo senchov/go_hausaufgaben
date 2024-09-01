@@ -35,7 +35,7 @@ func TestCollectData(t *testing.T) {
 	uStr := <-undefinedData
 	fmt.Println(uStr)
 	if uStr != Undefined {
-		t.Error("Data should be undefined if name is empthy")
+		t.Error("Data should be undefined if name is empty")
 	}
 }
 
@@ -51,7 +51,7 @@ func TestIsShouldOpenCage(t *testing.T) {
 
 	s := <-secondCageLock
 	if !s {
-		t.Error("Second cage should be closed but it oepned")
+		t.Error("Second cage should be closed but it opened")
 	}
 }
 
