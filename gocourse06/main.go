@@ -31,13 +31,13 @@ func main() {
 	go CheckTrough(Trough{ID: 3, Amount: 40}, full, empty)
 	go CheckTrough(Trough{ID: 4, Amount: 0}, full, empty)
 
-	fullIds := []int{<-full, <-full}
-	for i, v := range fullIds {
+	fullIDs := []int{<-full, <-full}
+	for i, v := range fullIDs {
 		fmt.Printf("full id=>%d index=%d \n", v, i)
 	}
 
-	emptyIds := []int{<-empty, <-empty}
-	for i, v := range emptyIds {
+	emptyIDs := []int{<-empty, <-empty}
+	for i, v := range emptyIDs {
 		fmt.Printf("empty id=>%d index=%d\n", v, i)
 	}
 

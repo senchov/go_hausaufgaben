@@ -63,21 +63,21 @@ func TestCheckTrough(t *testing.T) {
 	go CheckTrough(Trough{ID: 3, Amount: 40}, full, empty)
 	go CheckTrough(Trough{ID: 4, Amount: 0}, full, empty)
 
-	fullIds := []int{
+	fullIDs := []int{
 		<-full,
 		<-full,
 	}
-	for i, v := range fullIds {
+	for i, v := range fullIDs {
 		if v > i+1 || v < i {
 			t.Errorf("Wrong id->%v, expected more then %v and less then %v", v, i+1, i)
 		}
 	}
 
-	emptyIds := []int{
+	emptyIDs := []int{
 		<-empty,
 		<-empty,
 	}
-	for i, v := range emptyIds {
+	for i, v := range emptyIDs {
 		if v > i+4 || v < i+2 {
 			t.Errorf("Wrong id->%v, expected more then %v and less then %v", v, i+4, i+2)
 		}
