@@ -5,8 +5,6 @@ import (
 	"math/rand"
 )
 
-// Наприклад, зоопарк ділиться на території: копитні, пернаті, примати… та інше.
-
 const (
 	Ungulates AnimalType = "Ungulates"
 	Feathered AnimalType = "Feathered"
@@ -184,11 +182,28 @@ func AnimalIndex(animals []Animal, id int) int {
 
 func (zoo *Zoo) MoveAnimal(name string, sector Breed) {
 	a := zoo.FindAnimal(name)
+	if a == nil {
+		fmt.Errorf("Animal with name %s is absent in zoo", name)
+		return
+	}
 	sTarget := zoo.FindSector(sector)
+	if sTarget == nil {
+		fmt.Errorf("Sector with breed %s is absent", sector)
+		return
+	}
 	sTarget.AddAnimal(*a)
 
 	sSource := zoo.FindAnimalSector(name)
+	if sSource == nil {
+		fmt.Errorf("Sector for animal %s is absent", name)
+		return
+	}
+
 	sourсeIndex := AnimalIndex(*sSource.Animals, a.ID)
+	if sourсeIndex == -1 {
+		fmt.Errorf("Animal with id %d is absent", a.ID)
+	}
+
 	*sSource.Animals = append((*sSource.Animals)[:sourсeIndex], (*sSource.Animals)[sourсeIndex+1:]...)
 }
 
