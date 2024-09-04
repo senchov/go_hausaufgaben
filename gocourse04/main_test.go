@@ -7,7 +7,7 @@ import (
 func TestNewZoo(t *testing.T) {
 	zoo := NewZoo(CreateAreas())
 	if zoo == nil {
-		t.Error("Zoo is nil")
+		t.Fatal("Zoo is nil")
 	}
 
 	if len(zoo.Areas) != 3 {

@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+)
 
 // Наприклад, зоопарк ділиться на території: копитні, пернаті, примати… та інше.
 
@@ -17,9 +20,38 @@ const (
 )
 
 func main() {
-	fmt.Println("Start")
 	zoo := NewZoo(CreateAreas())
-	fmt.Println(zoo)
+	timon := zoo.FindAnimal("Timon")
+	timon.Eat()
+	timon.PrintAnimal()
+
+	zoo.MoveAnimal("Pumbaa", Meerkat)
+	animalsInMeerkat := *zoo.Areas[Mammals].Sectors[Meerkat].Animals
+	for _, v := range animalsInMeerkat {
+		fmt.Println(v)
+	}
+
+	for _, v := range zoo.Areas {
+		for _, k := range v.Sectors {
+			for _, a := range *k.Animals {
+				isFeed := rand.Intn(2) == 1
+				if isFeed {
+					a.Eat()
+				}
+				a.PrintAnimal()
+			}
+		}
+	}
+}
+
+func (a Animal) PrintAnimal() {
+	var hunger string
+	if a.IsAte {
+		hunger = "in not hunger"
+	} else {
+		hunger = "is hunger"
+	}
+	fmt.Printf("Animal with name %s %s\n", a.Name, hunger)
 }
 
 type Areas map[AnimalType]Area
