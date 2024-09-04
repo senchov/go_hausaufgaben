@@ -164,6 +164,6 @@ func (sector *Sector) AddAnimal(animal Animal) {
 	*sector.Animals = append(*sector.Animals, animal)
 }
 
-func (a *Animal) FeedAnimal() {
+func (a *Animal) Eat() {
 	a.IsAte = true
 }

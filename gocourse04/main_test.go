@@ -50,7 +50,7 @@ func TestAddAnimalToSector(t *testing.T) {
 func TestFeedAnimal(t *testing.T) {
 	zoo := NewZoo(CreateAreas())
 	a := zoo.FindAnimal("Donald")
-	a.FeedAnimal()
+	a.Eat()
 	if !a.IsAte {
 		t.Error("Donald is hungry")
 	}
