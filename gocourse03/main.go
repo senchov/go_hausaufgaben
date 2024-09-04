@@ -38,11 +38,11 @@ func main() {
 	northRodents := []Rodent{rodents[3]}
 
 	param := RodentParameter{
-		Rodents:      rodents,
-		WestRodents:  westRodents,
-		EastRodents:  eastRodents,
-		SouthRodents: southRodents,
-		NorthRodents: northRodents,
+		Rodents:      &rodents,
+		WestRodents:  &westRodents,
+		EastRodents:  &eastRodents,
+		SouthRodents: &southRodents,
+		NorthRodents: &northRodents,
 	}
 
 	PrintLocations(rodents, movements)
@@ -75,16 +75,16 @@ func moveThroughCenter(
 	param RodentParameter,
 	movements []Movement,
 ) []Movement {
-	rIndex := Index(param.Rodents, id)
-	(param.Rodents)[rIndex].FromTo[0] = from
-	(param.Rodents)[rIndex].FromTo[1] = to
+	rIndex := Index(*param.Rodents, id)
+	(*param.Rodents)[rIndex].FromTo[0] = from
+	(*param.Rodents)[rIndex].FromTo[1] = to
 
 	dst := FindSectorSlice(to, param.WestRodents, param.EastRodents, param.NorthRodents, param.SouthRodents)
-	dst = append(dst, param.Rodents[rIndex])
+	*dst = append(*dst, (*param.Rodents)[rIndex])
 
 	src := FindSectorSlice(from, param.WestRodents, param.EastRodents, param.NorthRodents, param.SouthRodents)
-	index := Index(src, id)
-	src = append(src[:index], src[index+1:]...)
+	index := Index(*src, id)
+	*src = append((*src)[:index], (*src)[index+1:]...)
 
 	movements = append(movements, Movement{MoveTime: moveTime, FromTo: [2]Sector{from, to}})
 	return movements
@@ -92,10 +92,10 @@ func moveThroughCenter(
 
 func FindSectorSlice(
 	name Sector,
-	westRodents []Rodent,
-	eastRodents []Rodent,
-	northRodents []Rodent,
-	southRodents []Rodent) []Rodent {
+	westRodents *[]Rodent,
+	eastRodents *[]Rodent,
+	northRodents *[]Rodent,
+	southRodents *[]Rodent) *[]Rodent {
 	switch name {
 	case WestSector:
 		return westRodents
@@ -132,9 +132,9 @@ func PrintLocations(rodents []Rodent, movements []Movement) {
 }
 
 type RodentParameter struct {
-	Rodents      []Rodent
-	WestRodents  []Rodent
-	EastRodents  []Rodent
-	NorthRodents []Rodent
-	SouthRodents []Rodent
+	Rodents      *[]Rodent
+	WestRodents  *[]Rodent
+	EastRodents  *[]Rodent
+	NorthRodents *[]Rodent
+	SouthRodents *[]Rodent
 }
