@@ -19,18 +19,18 @@ func TestRotate(t *testing.T) {
 func TestRecord(t *testing.T) {
 	ptz := NewPTZCamera(10, 0)
 	records := []AnimalRecord{}
-	ptz.Record(*NewConditions(false, 5, 100), &records, *NewAnimalRecord(Bear, Sleep))
+	records = ptz.Record(*NewConditions(false, 5, 100), records, *NewAnimalRecord(Bear, Sleep))
 	if len(records) == 0 {
 		t.Error("Doesn't record anything")
 	}
 
-	ptz.Record(*NewConditions(true, 5, 100), &records, *NewAnimalRecord(Bear, Sleep))
+	records = ptz.Record(*NewConditions(true, 5, 100), records, *NewAnimalRecord(Bear, Sleep))
 	if len(records) == 2 {
 		t.Error("Shouldn't record at night")
 	}
 
 	nv := NewNightvisionCamera(30, 6)
-	nv.Record(*NewConditions(true, 5, 100), &records, *NewAnimalRecord(Tiger, Walking))
+	records = nv.Record(*NewConditions(true, 5, 100), records, *NewAnimalRecord(Tiger, Walking))
 	if len(records) != 2 {
 		t.Error("Nightvision camera doesn't work")
 	}

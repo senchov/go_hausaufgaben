@@ -12,18 +12,18 @@ func main() {
 	ptz := security.NewPTZCamera(250, 10)
 	nv := security.NewNightvisionCamera(30, 6)
 
-	ptz.Record(*security.NewConditions(false, 2, 100), &records, *security.NewAnimalRecord(security.Bear, security.Sleep))
-	ptz.Record(*security.NewConditions(true, 4, 100), &records, *security.NewAnimalRecord(security.Bear, security.Sleep))
-	nv.Record(*security.NewConditions(true, 5, 100), &records, *security.NewAnimalRecord(security.Tiger, security.Walking))
-	ptz.Record(*security.NewConditions(false, 5, 100), &records, *security.NewAnimalRecord(security.Rat, security.Eat))
-	nv.Record(*security.NewConditions(true, 50, 100), &records, *security.NewAnimalRecord(security.Tiger, security.Walking))
-	nv.Record(*security.NewConditions(true, 3, 100), &records, *security.NewAnimalRecord(security.Tiger, security.Walking))
-	ptz.Record(*security.NewConditions(false, 150, 100), &records, *security.NewAnimalRecord(security.Rat, security.Walking))
-	ptz.Record(*security.NewConditions(false, 4, 100), &records, *security.NewAnimalRecord(security.Bear, security.Sleep))
-	nv.Record(*security.NewConditions(true, 55, 0), &records, *security.NewAnimalRecord(security.Tiger, security.Walking))
-	ptz.Record(*security.NewConditions(false, 27, 100), &records, *security.NewAnimalRecord(security.Rat, security.Eat))
-	nv.Record(*security.NewConditions(true, 33, 100), &records, *security.NewAnimalRecord(security.Rat, security.Walking))
-	nv.Record(*security.NewConditions(true, 3, 100), &records, *security.NewAnimalRecord(security.Bear, security.Eat))
+	records = ptz.Record(*security.NewConditions(false, 2, 100), records, *security.NewAnimalRecord(security.Bear, security.Sleep))
+	records = ptz.Record(*security.NewConditions(true, 4, 100), records, *security.NewAnimalRecord(security.Bear, security.Sleep))
+	records = nv.Record(*security.NewConditions(true, 5, 100), records, *security.NewAnimalRecord(security.Tiger, security.Walking))
+	records = ptz.Record(*security.NewConditions(false, 5, 100), records, *security.NewAnimalRecord(security.Rat, security.Eat))
+	records = nv.Record(*security.NewConditions(true, 50, 100), records, *security.NewAnimalRecord(security.Tiger, security.Walking))
+	records = nv.Record(*security.NewConditions(true, 3, 100), records, *security.NewAnimalRecord(security.Tiger, security.Walking))
+	records = ptz.Record(*security.NewConditions(false, 150, 100), records, *security.NewAnimalRecord(security.Rat, security.Walking))
+	records = ptz.Record(*security.NewConditions(false, 4, 100), records, *security.NewAnimalRecord(security.Bear, security.Sleep))
+	records = nv.Record(*security.NewConditions(true, 55, 0), records, *security.NewAnimalRecord(security.Tiger, security.Walking))
+	records = ptz.Record(*security.NewConditions(false, 27, 100), records, *security.NewAnimalRecord(security.Rat, security.Eat))
+	records = nv.Record(*security.NewConditions(true, 33, 100), records, *security.NewAnimalRecord(security.Rat, security.Walking))
+	records = nv.Record(*security.NewConditions(true, 3, 100), records, *security.NewAnimalRecord(security.Bear, security.Eat))
 
 	for _, v := range records {
 		v.Print()
@@ -43,7 +43,7 @@ func main() {
 		action := actions[rand.Intn(3)]
 		for j := 0; j < 2; j++ {
 			rotators[j].Rotate(security.Angle(rand.Float32() * 180))
-			recorders[j].Record(*security.NewConditions(isNight, distToAnimal, battery), &records, *security.NewAnimalRecord(animal, action))
+			records = recorders[j].Record(*security.NewConditions(isNight, distToAnimal, battery), records, *security.NewAnimalRecord(animal, action))
 		}
 	}
 
@@ -57,5 +57,5 @@ type Rotater interface {
 }
 
 type Recorder interface {
-	Record(c security.Condition, records *[]security.AnimalRecord, rec security.AnimalRecord)
+	Record(c security.Condition, records []security.AnimalRecord, rec security.AnimalRecord) []security.AnimalRecord
 }

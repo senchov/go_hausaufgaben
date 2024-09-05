@@ -64,10 +64,11 @@ func (ptz *PTZCamera) Rotate(angle Angle) {
 	ptz.Angle += angle
 }
 
-func (ptz *PTZCamera) Record(c Condition, records *[]AnimalRecord, rec AnimalRecord) {
+func (ptz *PTZCamera) Record(c Condition, records []AnimalRecord, rec AnimalRecord) []AnimalRecord {
 	if !c.IsNight && ptz.Range > c.DistToAnimal && c.Battery > 0 {
-		*records = append(*records, rec)
+		records = append(records, rec)
 	}
+	return records
 }
 
 type FixedCamera struct {
@@ -82,7 +83,7 @@ func NewFixedCamera(r Range, a Angle) *FixedCamera {
 	}
 }
 
-func (ptz *FixedCamera) Rotate(angle float32) {
+func (ptz *FixedCamera) Rotate(_ float32) {
 	ptz.Angle = 0
 }
 
@@ -98,10 +99,11 @@ func NewNightvisionCamera(r Range, a Angle) *NightvisionCamera {
 	}
 }
 
-func (nv *NightvisionCamera) Record(c Condition, records *[]AnimalRecord, rec AnimalRecord) {
+func (nv *NightvisionCamera) Record(c Condition, records []AnimalRecord, rec AnimalRecord) []AnimalRecord {
 	if c.IsNight && nv.Range > c.DistToAnimal && c.Battery > 0 {
-		*records = append(*records, rec)
+		records = append(records, rec)
 	}
+	return records
 }
 
 func (nv *NightvisionCamera) Rotate(angle Angle) {
