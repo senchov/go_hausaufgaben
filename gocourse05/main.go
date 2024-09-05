@@ -26,7 +26,7 @@ func main() {
 	nv.Record(*security.NewConditions(true, 3, 100), &records, *security.NewAnimalRecord(security.Bear, security.Eat))
 
 	for _, v := range records {
-		fmt.Println(v)
+		v.Print()
 	}
 
 	animals := []security.AnimalType{security.Bear, security.Rat, security.Tiger}
@@ -48,6 +48,6 @@ func main() {
 	}
 
 	for _, v := range records {
-		fmt.Println(v)
+		v.Print()
 	}
 }

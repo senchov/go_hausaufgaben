@@ -1,5 +1,7 @@
 package security
 
+import "fmt"
+
 type Range float32
 type Angle float32
 
@@ -14,6 +16,10 @@ type Recorder interface {
 type AnimalRecord struct {
 	AnimalType
 	AnimalAction
+}
+
+func (r AnimalRecord) Print() {
+	fmt.Printf("Animal %s is doing %s \n", r.AnimalType, r.AnimalAction)
 }
 
 func NewAnimalRecord(t AnimalType, a AnimalAction) *AnimalRecord {
