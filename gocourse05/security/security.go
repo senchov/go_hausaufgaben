@@ -10,7 +10,7 @@ type Rotater interface {
 }
 
 type Recorder interface {
-	Record(c Conditions, records *[]AnimalRecord, rec AnimalRecord)
+	Record(c Condition, records *[]AnimalRecord, rec AnimalRecord)
 }
 
 type AnimalRecord struct {
@@ -42,14 +42,14 @@ const (
 	Walking AnimalAction = "Walking"
 )
 
-type Conditions struct {
+type Condition struct {
 	IsNight      bool
 	DistToAnimal Range
 	Battery      int
 }
 
-func NewConditions(isNight bool, dst Range, battery int) *Conditions {
-	return &Conditions{
+func NewConditions(isNight bool, dst Range, battery int) *Condition {
+	return &Condition{
 		IsNight:      isNight,
 		DistToAnimal: dst,
 		Battery:      battery,
@@ -72,7 +72,7 @@ func (ptz *PTZCamera) Rotate(angle Angle) {
 	ptz.Angle += angle
 }
 
-func (ptz *PTZCamera) Record(c Conditions, records *[]AnimalRecord, rec AnimalRecord) {
+func (ptz *PTZCamera) Record(c Condition, records *[]AnimalRecord, rec AnimalRecord) {
 	if !c.IsNight && ptz.Range > c.DistToAnimal && c.Battery > 0 {
 		*records = append(*records, rec)
 	}
@@ -106,7 +106,7 @@ func NewNightvisionCamera(r Range, a Angle) *NightvisionCamera {
 	}
 }
 
-func (nv *NightvisionCamera) Record(c Conditions, records *[]AnimalRecord, rec AnimalRecord) {
+func (nv *NightvisionCamera) Record(c Condition, records *[]AnimalRecord, rec AnimalRecord) {
 	if c.IsNight && nv.Range > c.DistToAnimal && c.Battery > 0 {
 		*records = append(*records, rec)
 	}
