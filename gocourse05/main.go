@@ -31,8 +31,8 @@ func main() {
 
 	animals := []security.AnimalType{security.Bear, security.Rat, security.Tiger}
 	actions := []security.AnimalAction{security.Eat, security.Sleep, security.Walking}
-	recorders := []security.Recorder{ptz, nv}
-	rotators := []security.Rotater{ptz, nv}
+	recorders := []Recorder{ptz, nv}
+	rotators := []Rotater{ptz, nv}
 
 	for i := 0; i < 100; i++ {
 		isNight := rand.Intn(2) == 1
@@ -50,4 +50,12 @@ func main() {
 	for _, v := range records {
 		v.Print()
 	}
+}
+
+type Rotater interface {
+	Rotate(angle security.Angle)
+}
+
+type Recorder interface {
+	Record(c security.Condition, records *[]security.AnimalRecord, rec security.AnimalRecord)
 }

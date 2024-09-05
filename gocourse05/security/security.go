@@ -5,14 +5,6 @@ import "fmt"
 type Range float32
 type Angle float32
 
-type Rotater interface {
-	Rotate(angle Angle)
-}
-
-type Recorder interface {
-	Record(c Condition, records *[]AnimalRecord, rec AnimalRecord)
-}
-
 type AnimalRecord struct {
 	AnimalType
 	AnimalAction
