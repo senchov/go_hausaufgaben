@@ -15,19 +15,19 @@ func TestCollectData(t *testing.T) {
 	go CollectData(Animal{Name: "Jack", Mood: Sad, Hunger: 0, Health: 56}, jackData)
 	go CollectData(Animal{Mood: Sad, Hunger: 0, Health: 56}, undefinedData)
 	daveStr := <-daveData
-	fmt.Println(daveStr)
+	t.Log(daveStr)
 	if len(daveStr) == 0 {
 		t.Errorf("Dave data is 0 expected more than zero")
 	}
 
 	mikeStr := <-mikeData
-	fmt.Println(mikeStr)
+	t.Log(mikeStr)
 	if len(mikeStr) == 0 {
 		t.Errorf("Mike data is 0 expected more than zero")
 	}
 
 	jackStr := <-jackData
-	fmt.Println(jackStr)
+	t.Log(jackStr)
 	if len(jackStr) == 0 {
 		t.Errorf("Jack data is 0 expected more than zero")
 	}
