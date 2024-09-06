@@ -1,28 +1,21 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sync"
+)
 
 func main() {
-	joData := make(chan string)
-	timData := make(chan string)
-	jackData := make(chan string)
-	undefinedData := make(chan string)
-	go CollectData(Animal{Name: "Jo", Mood: Sad, Hunger: 42, Health: 11}, joData)
-	go CollectData(Animal{Name: "Tim", Mood: Cool, Hunger: 21, Health: 44}, timData)
-	go CollectData(Animal{Name: "Jack", Mood: Sad, Hunger: 16, Health: 8}, jackData)
-	go CollectData(Animal{Mood: Sad, Hunger: 0, Health: 56}, undefinedData)
+	var wg sync.WaitGroup
+	wg.Add(4)
+	go CollectData(Animal{Name: "Jo", Mood: Sad, Hunger: 42, Health: 11}, &wg)
+	go CollectData(Animal{Name: "Tim", Mood: Cool, Hunger: 21, Health: 44}, &wg)
+	go CollectData(Animal{Name: "Jack", Mood: Sad, Hunger: 16, Health: 8}, &wg)
+	go CollectData(Animal{Mood: Sad, Hunger: 0, Health: 56}, &wg)
 
-	daveStr := <-joData
-	fmt.Println(daveStr)
-
-	mikeStr := <-timData
-	fmt.Println(mikeStr)
-
-	jackStr := <-jackData
-	fmt.Println(jackStr)
-
-	uStr := <-undefinedData
-	fmt.Println(uStr)
+	wg.Wait()
+	fmt.Println("Data collected")
+	fmt.Println("-----------")
 
 	full := make(chan int, 2)
 	empty := make(chan int, 1)
@@ -40,6 +33,7 @@ func main() {
 	for i, v := range emptyIDs {
 		fmt.Printf("empty id=>%d index=%d\n", v, i)
 	}
+	fmt.Println("-----------")
 
 	firstCageLock := make(chan bool)
 	secondCageLock := make(chan bool)
@@ -85,14 +79,10 @@ type Animal struct {
 	Mood
 }
 
-func CollectData(a Animal, data chan<- string) {
-	if a.Name == "" {
-		data <- Undefined
-		return
-	}
+func CollectData(a Animal, wg *sync.WaitGroup) {
 
-	r := fmt.Sprintf("Animal->%s is mood->%s health->%v hunger->%v", a.Name, a.Mood, a.Health, a.Hunger)
-	data <- r
+	defer wg.Done()
+	fmt.Printf("Animal->%s is mood->%s health->%v hunger->%v \n", a.Name, a.Mood, a.Health, a.Hunger)
 }
 
 // Керування доступом до вольєрів: Імплементуйте горутину, яка контролює доступ до вольєрів,

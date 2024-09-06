@@ -1,43 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"testing"
 )
-
-func TestCollectData(t *testing.T) {
-	daveData := make(chan string)
-	mikeData := make(chan string)
-	jackData := make(chan string)
-	undefinedData := make(chan string)
-	go CollectData(Animal{Name: "Dave", Mood: Sad, Hunger: 56, Health: 22}, daveData)
-	go CollectData(Animal{Name: "Mike", Mood: Cool, Hunger: 90, Health: 44}, mikeData)
-	go CollectData(Animal{Name: "Jack", Mood: Sad, Hunger: 0, Health: 56}, jackData)
-	go CollectData(Animal{Mood: Sad, Hunger: 0, Health: 56}, undefinedData)
-	daveStr := <-daveData
-	t.Log(daveStr)
-	if len(daveStr) == 0 {
-		t.Errorf("Dave data is 0 expected more than zero")
-	}
-
-	mikeStr := <-mikeData
-	t.Log(mikeStr)
-	if len(mikeStr) == 0 {
-		t.Errorf("Mike data is 0 expected more than zero")
-	}
-
-	jackStr := <-jackData
-	t.Log(jackStr)
-	if len(jackStr) == 0 {
-		t.Errorf("Jack data is 0 expected more than zero")
-	}
-
-	uStr := <-undefinedData
-	fmt.Println(uStr)
-	if uStr != Undefined {
-		t.Error("Data should be undefined if name is empty")
-	}
-}
 
 func TestIsShouldOpenCage(t *testing.T) {
 	firstCageLock := make(chan bool)
