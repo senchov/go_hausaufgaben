@@ -28,14 +28,14 @@ func main() {
 
 	for _, v := range datas {
 		switch v.Subgect.(type) {
-		case Tiger:
-			tiger := v.Subgect.(Tiger)
+		case Tiger[float32]:
+			tiger := v.Subgect.(Tiger[float32])
 			fmt.Printf("The tiger with dexeterity=%f intensity=%d make sound=%s\n", tiger.Dexeterity, v.Intensity, v.Sound)
-		case Bear:
-			bear := v.Subgect.(Bear)
+		case Bear[float32]:
+			bear := v.Subgect.(Bear[float32])
 			fmt.Printf("The bear with speed=%f intensity=%d make sound=%s\n", bear.Speed, v.Intensity, v.Sound)
-		case Gorilla:
-			gorilla := v.Subgect.(Gorilla)
+		case Gorilla[int8]:
+			gorilla := v.Subgect.(Gorilla[int8])
 			fmt.Printf("The gorilla with strength=%d intensity=%d make sound=%s\n", gorilla.Strength, v.Intensity, v.Sound)
 		}
 	}
@@ -44,16 +44,16 @@ func main() {
 type Animal struct {
 }
 
-type Tiger struct {
-	Dexeterity float32
+type Tiger[T any] struct {
+	Dexeterity T
 }
 
-type Bear struct {
-	Speed float64
+type Bear[T any] struct {
+	Speed T
 }
 
-type Gorilla struct {
-	Strength int8
+type Gorilla[T any] struct {
+	Strength T
 }
 
 type Collar struct {
@@ -71,11 +71,11 @@ type Data struct {
 func (c Collar) Initialize() any {
 	switch {
 	case c.Pulse < 50 && c.Temparature < 50:
-		return Tiger{Dexeterity: 98}
+		return Tiger[float32]{Dexeterity: 98}
 	case c.Pulse < 100 && c.Temparature < 100:
-		return Bear{Speed: 100}
+		return Bear[float32]{Speed: 100}
 	case c.Pulse < 150 && c.Temparature < 150:
-		return Gorilla{Strength: 15}
+		return Gorilla[int8]{Strength: 15}
 	default:
 		return Animal{}
 	}

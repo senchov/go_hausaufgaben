@@ -8,14 +8,14 @@ import (
 func TestInitialize(t *testing.T) {
 	tigerCollar := Collar{Pulse: 25, Temparature: 35}
 	subject := tigerCollar.Initialize()
-	v, ok := subject.(Tiger)
+	v, ok := subject.(Tiger[float32])
 	if !ok {
 		t.Errorf("Expected Tiger but received %s", reflect.TypeOf(v))
 	}
 
 	bearCollar := Collar{Pulse: 65, Temparature: 87}
 	subject = bearCollar.Initialize()
-	v1, ok := subject.(Bear)
+	v1, ok := subject.(Bear[float32])
 	if !ok {
 		t.Errorf("Expected Bear but received %s", reflect.TypeOf(v1))
 	}
