@@ -9,15 +9,15 @@ type Item struct {
 	ObserverList []Observer
 }
 
-func (i *Item) register(o Observer) {
+func (i *Item) Register(o Observer) {
 	i.ObserverList = append(i.ObserverList, o)
 }
 
-func (i *Item) deregister(o Observer) {
+func (i *Item) Deregister(o Observer) {
 	i.ObserverList = removeFromslice(i.ObserverList, o)
 }
 
-func (i *Item) notifyAll() {
+func (i *Item) NotifyAll() {
 	for _, observer := range i.ObserverList {
 		observer.TimeToEat()
 	}
