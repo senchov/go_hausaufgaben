@@ -48,11 +48,11 @@ type Tiger[T any] struct {
 	Dexterity T
 }
 
-type Bear[T any] struct {
+type Bear[T float32 | float64 | int8 | int32] struct {
 	Speed T
 }
 
-type Gorilla[T any] struct {
+type Gorilla[T int8 | int32 | int | int64] struct {
 	Strength T
 }
 
