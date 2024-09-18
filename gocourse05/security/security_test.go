@@ -1,37 +1,38 @@
 package security
 
-import "testing"
+import (
+	"gocourse05/animal"
+	"testing"
+)
 
-func TestRotate(t *testing.T) {
+func TestPTZCamera_Rotate(t *testing.T) {
 	ptz := NewPTZCamera(0, 0)
 	ptz.Rotate(30)
 	if ptz.Angle < 30 {
-		t.Error("PTZ camera doesn't rotate")
-	}
-
-	fixed := NewFixedCamera(0, 0)
-	fixed.Rotate(90)
-	if fixed.Angle != 0 {
-		t.Error("Fixed camera shouldn't rotate")
+		t.Error("PTZ camera doesn't rotate to angle 30 should be 30 degrees")
 	}
 }
 
-func TestRecord(t *testing.T) {
-	ptz := NewPTZCamera(10, 0)
-	records := []AnimalRecord{}
-	records = ptz.Record(*NewConditions(false, 5, 100), records, *NewAnimalRecord(Bear, Sleep))
-	if len(records) == 0 {
-		t.Error("Doesn't record anything")
-	}
-
-	records = ptz.Record(*NewConditions(true, 5, 100), records, *NewAnimalRecord(Bear, Sleep))
-	if len(records) == 2 {
-		t.Error("Shouldn't record at night")
-	}
+func TestFixedCamera_Record(t *testing.T) {
+	records := []animal.AnimalRecord{}
 
 	nv := NewNightvisionCamera(30, 6)
-	records = nv.Record(*NewConditions(true, 5, 100), records, *NewAnimalRecord(Tiger, Walking))
-	if len(records) != 2 {
+	records = nv.Record(*NewCondition(true, 5, 100), records, *animal.NewAnimalRecord(animal.Tiger, animal.Walking))
+	if len(records) != 1 {
 		t.Error("Nightvision camera doesn't work")
+	}
+}
+
+func TestPTZCamera_Recordt(t *testing.T) {
+	ptz := NewPTZCamera(10, 0)
+	records := []animal.AnimalRecord{}
+	records = ptz.Record(*NewCondition(false, 5, 100), records, *animal.NewAnimalRecord(animal.Bear, animal.Sleep))
+	if len(records) == 0 {
+		t.Error("Amount of records equals zero but should one")
+	}
+
+	records = ptz.Record(*NewCondition(true, 5, 100), records, *animal.NewAnimalRecord(animal.Bear, animal.Sleep))
+	if len(records) == 2 {
+		t.Error("Amount of records was two should be one, because the camera shouldn't record at night")
 	}
 }
