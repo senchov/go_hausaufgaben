@@ -4,32 +4,28 @@ import (
 	"gocourse11/aquarium"
 )
 
-//import "gocourse11/aqurium"
-// Потрібно вирахувати рівень забруднення і запустити системи фільтрації в зміненому режимі,
-//також додати до води необхідні хімічні речовини, які покращать її стан.
-
 type System struct{}
 
 func (System) CalculatePollution(a aquarium.Aquarium) int {
 	var n, mg int
-	for _, v := range a.Chemichals {
+	for _, v := range a.Chemicals {
 		switch v {
 		case aquarium.N:
-			n += 1
+			n++
 		case aquarium.Mg:
-			mg += 1
+			mg++
 		}
 	}
 
 	return n + mg
 }
 
-func (System) Filter(polution int, a *aquarium.Aquarium) {
-	if polution > 5 {
-		a.Chemichals = append(a.Chemichals, aquarium.K)
+func (System) Filter(pollution int, a *aquarium.Aquarium) {
+	if pollution > 5 {
+		a.Chemicals = append(a.Chemicals, aquarium.K)
 	}
 
-	if polution > 10 {
-		a.Chemichals = append(a.Chemichals, aquarium.Na)
+	if pollution > 10 {
+		a.Chemicals = append(a.Chemicals, aquarium.Na)
 	}
 }

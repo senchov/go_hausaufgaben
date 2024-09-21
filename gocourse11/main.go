@@ -9,7 +9,7 @@ import (
 func main() {
 
 	first := aquarium.New(aquarium.WithAnimal(aquarium.Cat),
-		aquarium.WithChemichals([]aquarium.Chemichals{
+		aquarium.WithChemicals([]aquarium.Chemicals{
 			aquarium.N,
 			aquarium.Mg,
 			aquarium.Mg,
@@ -19,7 +19,7 @@ func main() {
 	RunFilter(first, "first")
 
 	second := aquarium.New(aquarium.WithAnimal(aquarium.Cat),
-		aquarium.WithChemichals([]aquarium.Chemichals{
+		aquarium.WithChemicals([]aquarium.Chemicals{
 			aquarium.N,
 			aquarium.Mg,
 			aquarium.Mg,
@@ -32,7 +32,7 @@ func main() {
 	RunFilter(second, "second")
 
 	third := aquarium.New(aquarium.WithAnimal(aquarium.Cat),
-		aquarium.WithChemichals([]aquarium.Chemichals{
+		aquarium.WithChemicals([]aquarium.Chemicals{
 			aquarium.N,
 			aquarium.Mg,
 			aquarium.Mg,
@@ -52,16 +52,18 @@ func main() {
 
 func RunFilter(a *aquarium.Aquarium, name string) {
 	filterSystem := filter.System{}
-	polution := filterSystem.CalculatePollution(*a)
-	if polution <= 5 {
+	pollution := filterSystem.CalculatePollution(*a)
+	if pollution <= 5 {
 		fmt.Printf("Aquarium %s is clean\n", name)
-	} else {
-		filterSystem.Filter(polution, a)
-		fmt.Printf("Aquarim %s is polluted with value of %d\n", name, polution)
-		if polution > 10 {
-			fmt.Printf("Aquarim %s filtered with chemicals K and Na\n", name)
-		} else if polution > 5 {
-			fmt.Printf("Aquarim %s filtered with chemical K\n", name)
-		}
+		return
 	}
+
+	filterSystem.Filter(pollution, a)
+	fmt.Printf("Aquarium %s is polluted with value of %d\n", name, pollution)
+	if pollution > 10 {
+		fmt.Printf("Aquarium %s filtered with chemicals K and Na\n", name)
+		return
+	}
+
+	fmt.Printf("Aquarium %s filtered with chemical K\n", name)
 }

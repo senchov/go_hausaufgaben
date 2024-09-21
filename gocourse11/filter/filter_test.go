@@ -6,24 +6,24 @@ import (
 )
 
 func TestCalculatePollution(t *testing.T) {
-	a := aquarium.Aquarium{Chemichals: []aquarium.Chemichals{aquarium.N,
+	a := aquarium.Aquarium{Chemicals: []aquarium.Chemicals{aquarium.N,
 		aquarium.Mg, aquarium.Mg}}
 	system := System{}
 	pollution := system.CalculatePollution(a)
 	if pollution != 3 {
-		t.Errorf("Polution isn't right should be 3 but was %d\n", pollution)
+		t.Errorf("Pollution isn't right should be 3 but was %d\n", pollution)
 	}
 
-	a = aquarium.Aquarium{Chemichals: []aquarium.Chemichals{aquarium.N,
+	a = aquarium.Aquarium{Chemicals: []aquarium.Chemicals{aquarium.N,
 		aquarium.Mg, aquarium.Mg, aquarium.Na, aquarium.K}}
 	pollution = system.CalculatePollution(a)
 	if pollution != 3 {
-		t.Errorf("Polution isn't right should be 3 but was %d\n", pollution)
+		t.Errorf("Pollution isn't right should be 3 but was %d\n", pollution)
 	}
 }
 
 func TestFilter(t *testing.T) {
-	a := aquarium.Aquarium{Chemichals: []aquarium.Chemichals{
+	a := aquarium.Aquarium{Chemicals: []aquarium.Chemicals{
 		aquarium.N,
 		aquarium.Mg,
 		aquarium.Mg,
@@ -34,11 +34,11 @@ func TestFilter(t *testing.T) {
 	system := System{}
 	pollution := system.CalculatePollution(a)
 	system.Filter(pollution, &a)
-	if len(a.Chemichals) != 7 {
-		t.Errorf("Should be seven chemical elements but was %d", len(a.Chemichals))
+	if len(a.Chemicals) != 7 {
+		t.Errorf("Should be seven chemical elements but was %d", len(a.Chemicals))
 	}
 
-	a = aquarium.Aquarium{Chemichals: []aquarium.Chemichals{
+	a = aquarium.Aquarium{Chemicals: []aquarium.Chemicals{
 		aquarium.N,
 		aquarium.Mg,
 		aquarium.Mg,
@@ -54,7 +54,7 @@ func TestFilter(t *testing.T) {
 	}}
 	pollution = system.CalculatePollution(a)
 	system.Filter(pollution, &a)
-	if len(a.Chemichals) != 14 {
-		t.Errorf("Should be 14 chemical elements but was %d", len(a.Chemichals))
+	if len(a.Chemicals) != 14 {
+		t.Errorf("Should be 14 chemical elements but was %d", len(a.Chemicals))
 	}
 }

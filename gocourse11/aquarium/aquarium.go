@@ -1,25 +1,24 @@
 package aquarium
 
-// У тераріумі зоопарку купа акваріумів, і всі різні: розмір, тварина всередині, рівень солі. Кожен акваріум віддає на центральний сервер хімічний склад води.
 type Aquarium struct {
 	Size int
 	Animal
-	SaltLevel  int
-	Chemichals []Chemichals
+	SaltLevel int
+	Chemicals []Chemicals
 }
 
 type Animal string
-type Chemichals string
+type Chemicals string
 
 const (
 	Cat   Animal = "Cat"
 	Manul Animal = "Manul"
 	Tiger Animal = "Tiger"
 
-	N  Chemichals = "N"
-	Mg Chemichals = "Mg"
-	Na Chemichals = "Na"
-	K  Chemichals = "K"
+	N  Chemicals = "N"
+	Mg Chemicals = "Mg"
+	Na Chemicals = "Na"
+	K  Chemicals = "K"
 )
 
 func New(options ...func(*Aquarium)) *Aquarium {
@@ -48,8 +47,8 @@ func WithSaltLevel(saltLevel int) func(*Aquarium) {
 	}
 }
 
-func WithChemichals(c []Chemichals) func(*Aquarium) {
+func WithChemicals(c []Chemicals) func(*Aquarium) {
 	return func(a *Aquarium) {
-		a.Chemichals = c
+		a.Chemicals = c
 	}
 }
